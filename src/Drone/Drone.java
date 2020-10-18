@@ -29,6 +29,21 @@ public class Drone {
         return "Drone is at " + posX + ", " + posY;
     }
 
+    /**
+     * Is the drone at this x,y position
+     * @param x	    x position
+     * @param y 	y position
+     * @return		true if drone is at x,y or false otherwise
+     */
+
+    public boolean isHere(int x,int y){
+        if (posX == x && posY == y) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 
     public static void main(String[] args) {
         Drone d = new Drone(5,3);		// create drone
