@@ -30,6 +30,8 @@ public class DroneInterface {
             switch (ch) {
                 case 'A', 'a' -> myArena.addDrone();    // add a new drone to arena
                 case 'I', 'i' -> System.out.print(myArena.toString());
+                case 'D','d' -> doDisplay();
+
                 case 'x' -> ch = 'X';                // when X detected program ends
             }
         } while (ch != 'X');						// test if end
@@ -37,7 +39,21 @@ public class DroneInterface {
         s.close();									// close scanner
     }
 
-    public static void main(String[] args) {
+    void doDisplay() {
+        if (myArena.getX() > 0 && myArena.getY() > 0) {
+            ConsoleCanvas canvas = new ConsoleCanvas(myArena.getX() + 2, myArena.getY() + 2);
+            myArena.showDrones(canvas);
+            System.out.println(canvas.toString()); // displays arena
+            if (myArena.droneList.isEmpty()) { // if no drones exist
+                System.out.println("\nNo drones added yet!");
+            }
+        } else {
+            System.out.println("\nArena does not exist!"); // if arena does not exist
+        }
+    }
+
+
+        public static void main(String[] args) {
         DroneInterface r = new DroneInterface();	// just call the interface
     }
 

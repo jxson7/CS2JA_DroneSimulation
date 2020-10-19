@@ -3,7 +3,7 @@ import java.util.*;
 
 
 public class DroneArena {
-    int xDimensions, yDimensions;
+    public int xDimensions, yDimensions;
     ArrayList<Drone> droneList = new ArrayList<Drone>();
     Drone droneTest;
     DroneArena(int width, int height){
@@ -20,12 +20,12 @@ public class DroneArena {
         //droneList = new ArrayList<Drone>();
    // }
 
-    //public int getxDimensions(){
-     //   return xDimensions;
-   // }
-   // public int getyDimensions(){
-   //     return yDimensions;
-    //}
+    public int getX(){
+      return xDimensions;
+    }
+    public int getY(){
+        return yDimensions;
+    }
 
 
 
@@ -49,7 +49,16 @@ public class DroneArena {
 
     }
 
-        public void addDrone() {
+    public void showDrones(ConsoleCanvas c) {
+        for (Drone d : droneList) {
+            d.displayDrone(c);
+        }
+
+        // << loop through all the Drones calling the displayDrone method >>
+    }
+
+
+    public void addDrone() {
             Random random;
             random = new Random();
             int xco = (int) (Math.random() * ((xDimensions) + 1));

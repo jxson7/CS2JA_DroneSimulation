@@ -18,6 +18,11 @@ public class Drone {
     }
     // implemented setters and getters
 
+    public void displayDrone(ConsoleCanvas c) {
+        char droneChr = '*';
+        c.showIt(posX, posY, droneChr);
+        // << call the showIt method in c to put a D where the drone is
+    }
 
 
     public String toString() {
