@@ -3,58 +3,45 @@ import java.util.*;
 
 
 public class DroneArena {
-    int xSize, ySize;
-    ArrayList<Drone> drones;
-    Random random;
+    int xDimensions, yDimensions;
+    ArrayList<Drone> droneList = new ArrayList<Drone>();
     Drone droneTest;
-
-    public DroneArena(int x, int y) {// declaration
-        xSize = x;
-        ySize = y;
-        random = new Random();
-        drones = new ArrayList<Drone>();
+    DroneArena(int width, int height){
+        xDimensions = width;
+        yDimensions = height;
     }
 
-    public int getxSize(){
-        return xSize;
-    }
-    public int getySize(){
-        return ySize;
-    }
+   // public DroneArena(int x, int y) {// declaration
+     //   xDimensions = x;
+       // yDimensions = y;
+        //random = new Random();
+        //xco = random.nextInt();
+       // //yco = random.nextInt();
+        //droneList = new ArrayList<Drone>();
+   // }
 
-     // initialises new arena, by clearing out existing arrayList()
-    public void newArena() {
-        drones.clear();
-        drones = new ArrayList<Drone>();
-    }
-    public String toString() {
-        return "Drone is at " + xSize + ", " + ySize;
-    }
-
-
+    //public int getxDimensions(){
+     //   return xDimensions;
+   // }
+   // public int getyDimensions(){
+   //     return yDimensions;
+    //}
 
 
-        public void addDrone(){
-        int x,y;
-            x = random.nextInt(xSize);
-            y = random.nextInt(ySize);
-            droneTest = new Drone(x,y);
-            drones.add(droneTest);
 
-    }
 
     /**
-     * search arraylist of drones to see if there is a drone at x,y
-     * @param x
-     * @param y
+     * search arraylist of droneList to see if there is a drone at x,y
+     * @param x: checks value at x
+     * @param y: checks value at y
      * @return null if no Drone there, otherwise return drone
      */
     public Drone getDroneAt(int x, int y) {
-        Drone e = null;
-        for (Drone droneTest : drones) {
-            if (droneTest.isHere(x, y)) {
-                return e = droneTest;
-            } else {
+        Drone e;
+        e = null;
+        for (Drone droneTest : droneList) {
+            if (droneTest.isHere(x, y)) return e = droneTest;
+            else {
                 return droneTest;
             }
         }
@@ -62,9 +49,31 @@ public class DroneArena {
 
     }
 
+        public void addDrone() {
+            Random random;
+            random = new Random();
+            int xco = (int) (Math.random() * ((xDimensions) + 1));
+            int yco = (int) (Math.random() * ((yDimensions) + 1));
 
-    /*
-    Tester Class
+            droneTest = new Drone(xco, yco);
+
+            droneList.add(droneTest);
+
+            //return droneTest;
+        }
+
+    public String toString() {
+        //return "Drone is of size " + xco + " , " + yco;
+        String arena = "Drone arena is of size: " + xDimensions + ", " + yDimensions + ". ";
+        for (int i = 0;i < droneList.size(); i++) {
+            arena += droneList.get(i).toString();
+
+        }
+        return arena.toString();
+    }
+
+
+ /*   //Tester Class
     public static void main(String[] args) {
         DroneArena a = new DroneArena(20, 10);	// create drone arena
         a.addDrone();

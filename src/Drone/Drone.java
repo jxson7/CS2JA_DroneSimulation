@@ -7,8 +7,8 @@ package Drone;
 
 //setters
 public class Drone {
-    private int posX;
-    private int posY;
+    public int posX;
+    public int posY;
 
 
     Drone(int x, int y){
@@ -18,15 +18,10 @@ public class Drone {
     }
     // implemented setters and getters
 
-    public int getX(){
-        return posX;
-    }
-    public int getY(){
-        return posY;
-    }
+
 
     public String toString() {
-        return "Drone is at " + posX + ", " + posY;
+        return "Drone is at: " + posX + "," + posY + ".";
     }
 
     /**
@@ -37,11 +32,7 @@ public class Drone {
      */
 
     public boolean isHere(int x,int y){
-        if (posX == x && posY == y) {
-            return true;
-        }else{
-            return false;
-        }
+        return posX == x && posY == y;
     }
 
 
