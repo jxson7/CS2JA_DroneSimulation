@@ -1,4 +1,5 @@
 package Drone;
+// TODO: complete notes redraft
 
 public class ConsoleCanvas {
     private final char[][] canvas;
