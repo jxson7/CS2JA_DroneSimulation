@@ -11,9 +11,14 @@ public class DroneInterface {
      * then has main loop allowing user to enter commands
      */
     public DroneInterface() {
+
         // scanner used for input from user
-        Scanner input = new Scanner(System.in);            // set up scanner for user input
-        myArena = new DroneArena(20, 6);	// create arena of size 20*6
+        Scanner input = new Scanner(System.in);
+        System.out.println("Please enter your x co-ordinate to set your arena: ");
+        int valX = input.nextInt();
+        System.out.println("Please enter your y co-ordinate to set your arena: ");
+        int valY = input.nextInt();// set up scanner for user input
+        myArena = new DroneArena(valX,valY);	// create arena of size 20*6
         char ch = ' ';
         do {
             System.out.print("Enter (A)dd drone, get (I)nformation or e(X)it > ");
