@@ -1,18 +1,24 @@
 package Drone;
 // TODO: complete notes redraft
 
+/**
+ * author: Jason Jay Dookarun
+ * Summary: the following class is developed to provide an arena via terminal and generate a drone. Drone is then displayed as part of 
+ * the arena via an *. 
+ */
 public class ConsoleCanvas {
     private final char[][] canvas;
-    private final int canvasX;
-    private final int canvasY;
+    private final int canvasSideX;
+    private final int canvasSideY;
 
     public ConsoleCanvas(int x, int y){
-        canvasX = x;
-        canvasY = y;
+        canvasSideX = x;
+        canvasSideY = y;
         canvas = new char[x][y];
 
-        for (int i = 0; i < canvasX; i++) {
-            for (int j = 0; j < canvasY; j++) {
+        // implements a border for the arena, dependent on the preset size of the arena via user input
+        for (int i = 0; i < canvasSideX; i++) {
+            for (int j = 0; j < canvasSideY; j++) {
                 canvas[i][j] = ' ';
                 if (j == y - 1) {
                     canvas[i][j] = '#';
@@ -38,14 +44,14 @@ public class ConsoleCanvas {
     }
 
     public String toString() {
-        String res = "";
-        for (int i = 0; i < canvasX; i++) {
-            for (int j = 0; j < canvasY; j++) {
-                res = res + canvas[i][j] + " ";
+        StringBuilder str = new StringBuilder();
+        for (int i = 0; i < canvasSideX; i++) {
+            for (int j = 0; j < canvasSideY; j++) {
+                str.append(canvas[i][j]).append(" ");
             }
-            res = res + "\n";
+            str.append("\n");
         }
-        return res;
+        return str.toString();
     }
 
 

@@ -21,13 +21,15 @@ public class DroneArena {
         //droneList = new ArrayList<Drone>();
    // }
 
+    //setters and getters implemented for future purposes
+    public void setxDimensions(){ this.xDimensions = xDimensions; }
+    public void setyDimensions(){ this.yDimensions = yDimensions; }
     public int getX(){
       return xDimensions;
     }
     public int getY(){
         return yDimensions;
     }
-
 
 
 
@@ -54,8 +56,6 @@ public class DroneArena {
         for (Drone d : droneList) {
             d.displayDrone(c);
         }
-
-        // << loop through all the Drones calling the displayDrone method >>
     }
 
 
@@ -64,22 +64,18 @@ public class DroneArena {
             random = new Random();
             int xco = (int) (Math.random() * ((xDimensions) + 1));
             int yco = (int) (Math.random() * ((yDimensions) + 1));
-
             droneTest = new Drone(xco, yco);
-
             droneList.add(droneTest);
-
-            //return droneTest;
         }
 
     public String toString() {
         //return "Drone is of size " + xco + " , " + yco;
-        String arena = "Drone arena is of size: " + xDimensions + ", " + yDimensions + ". ";
-        for (int i = 0;i < droneList.size(); i++) {
-            arena += droneList.get(i).toString();
+        StringBuilder arena = new StringBuilder("Drone arena is of size: " + xDimensions + ", " + yDimensions + ". ");
+        for (Drone drone : droneList) {
+            arena.append(drone.toString());
 
         }
-        return arena.toString();
+        return arena.toString().toString();
     }
 
 

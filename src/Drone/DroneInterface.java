@@ -51,10 +51,8 @@ public class DroneInterface {
             System.out.println(canvas.toString()); // displays arena
         }
     }
-
-
-//        public static void main(String[] args) {
-  //      DroneInterface r = new DroneInterface();	// just call the interface
-   // }
+    public static void main(String[] args) {
+        DroneInterface r = new DroneInterface();	// just call the interface
+        }
 
 }
