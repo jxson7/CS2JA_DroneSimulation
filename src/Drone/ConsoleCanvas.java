@@ -4,7 +4,7 @@ package Drone;
 /**
  * author: Jason Jay Dookarun
  * Summary: the following class is developed to provide an arena via terminal and generate a drone. Drone is then displayed as part of 
- * the arena via an *. 
+ * the arena via a '#' character.
  */
 public class ConsoleCanvas {
     private final char[][] canvas;
@@ -39,15 +39,14 @@ public class ConsoleCanvas {
     }
 
     public void showIt(int droneX, int droneY, char ch) {
-
         canvas[droneX + 1][droneY + 1] = ch;//otherwise the drones would be displayed inside barrier
     }
 
     public String toString() {
         StringBuilder str = new StringBuilder();
-        for (int i = 0; i < canvasSideX; i++) {
-            for (int j = 0; j < canvasSideY; j++) {
-                str.append(canvas[i][j]).append(" ");
+        for (int x = 0; x < canvasSideX; x++) {
+            for (int y = 0; y < canvasSideY; y++) {
+                str.append(canvas[x][y]).append(" ");
             }
             str.append("\n");
         }

@@ -40,15 +40,11 @@ public class DroneArena {
      * @return null if no Drone there, otherwise return drone
      */
     public Drone getDroneAt(int x, int y) {
-        Drone e;
-        e = null;
+        Drone e = null;
         for (Drone droneTest : droneList) {
-            if (droneTest.isHere(x, y)) return e = droneTest;
-            else {
-                return droneTest;
-            }
+            return droneTest;
         }
-        return e;
+        return null;
 
     }
 
