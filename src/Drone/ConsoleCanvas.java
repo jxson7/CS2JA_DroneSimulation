@@ -35,8 +35,7 @@ public class ConsoleCanvas {
                 }
             }
         }
-
-    }
+        }
 
     public void showIt(int droneX, int droneY, char ch) {
         canvas[droneX + 1][droneY + 1] = ch;//otherwise the drones would be displayed inside barrier

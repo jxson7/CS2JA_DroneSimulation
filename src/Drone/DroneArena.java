@@ -1,7 +1,6 @@
 package Drone;
 import java.util.*;
 
-//TODO: Complete Redraft
 
 public class DroneArena {
     public int xDimensions, yDimensions;
@@ -12,14 +11,7 @@ public class DroneArena {
         yDimensions = height;
     }
 
-   // public DroneArena(int x, int y) {// declaration
-     //   xDimensions = x;
-       // yDimensions = y;
-        //random = new Random();
-        //xco = random.nextInt();
-       // //yco = random.nextInt();
-        //droneList = new ArrayList<Drone>();
-   // }
+
 
     //setters and getters implemented for future purposes
     public void setxDimensions(){ this.xDimensions = xDimensions; }
@@ -53,14 +45,26 @@ public class DroneArena {
             d.displayDrone(c);
         }
     }
+    public void moveAllDrones() {
+        for (Drone d : droneList) {
+            d.tryToMove(this);
+        }
+
+    }
+
+    public boolean canMoveHere(int x, int y) {
+        return getDroneAt(x, y) == null && x < xDimensions && y < yDimensions && x >= 0 && y >= 0;
+    }
 
 
-    public void addDrone() {
+
+        public void addDrone() {
             Random random;
             random = new Random();
             int xco = (int) (Math.random() * ((xDimensions) + 1));
             int yco = (int) (Math.random() * ((yDimensions) + 1));
-            droneTest = new Drone(xco, yco);
+
+            droneTest = new Drone(xco, yco, Direction.randomDir());
             droneList.add(droneTest);
         }
 
@@ -71,17 +75,15 @@ public class DroneArena {
             arena.append(drone.toString());
 
         }
-        return arena.toString().toString();
+        return arena.toString();
     }
 
 
- /*   //Tester Class
-    public static void main(String[] args) {
-        DroneArena a = new DroneArena(20, 10);	// create drone arena
-        a.addDrone();
-        System.out.println(a.toString());	// print where is
-    }
-*/
-
+// Tester Class
+//    public static void main(String[] args) {
+//        DroneArena a = new DroneArena(20, 10);	// create drone arena
+//        a.addDrone();
+//        System.out.println(a.toString());	// print where is
+//    }
 
 }

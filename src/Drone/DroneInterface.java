@@ -24,12 +24,14 @@ public class DroneInterface {
         myArena = new DroneArena(valX,valY);	// create arena of size 20*6
         char ch = ' ';
         do {
-            System.out.print("Press A to add a drone, press I to gain information on drone locations and arena size, press D to view locations of drones within arena or press Q to quit.  ");
+            System.out.print("Press (A) to add a drone, press (I) to gain information on drone locations and arena size, press (D) to view locations of drones within arena visually, press (E) to view locations of drones and information on co-ordinate locations, press (M) to re-position all drones and view display again or press (Q) to quit.  ");
             ch = input.next().charAt(0);
             input.nextLine();
             switch (ch) {
                 case 'A', 'a' -> myArena.addDrone();    // add a new drone to arena
                 case 'D','d' -> doDisplay();
+                case 'M', 'm' -> reposition();
+                case 'E', 'e' -> displayandinfo();
                 case 'I', 'i' -> System.out.print(myArena.toString());
                 case 'x' -> ch = 'X';
                 case 'q', 'Q' -> exit(0); // when X detected program ends
@@ -38,6 +40,15 @@ public class DroneInterface {
         input.close();									// close scanner
     }
 
+    private void displayandinfo(){
+        doDisplay();
+        System.out.print(myArena.toString());
+    }
+
+    private void reposition() {
+        myArena.moveAllDrones();
+        doDisplay();
+        }
 
     // the following method allows the implementation of a display to be created via the use of variables collected from DroneArena
     void doDisplay(){
