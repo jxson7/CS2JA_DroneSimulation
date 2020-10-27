@@ -2,8 +2,9 @@ package Drone;
 
 
 import java.util.Scanner;
-
 import static java.lang.System.exit;
+import java.awt.event.*;
+import javax.swing.*;
 
 public class DroneInterface {
 
@@ -21,10 +22,14 @@ public class DroneInterface {
         int valX = input.nextInt();
         System.out.println("Please enter your y co-ordinate to set your arena: ");
         int valY = input.nextInt();// set up scanner for user input
-        myArena = new DroneArena(valX,valY);	// create arena of size 20*6
+        myArena = new DroneArena(valX,valY);
+//        KeyEvent esc = null;
+//        int keyCode = esc.getKeyCode();
+
+        // create arena of size 20*6
         char ch = ' ';
         do {
-            System.out.print("Press (A) to add a drone, press (I) to gain information on drone locations and arena size, press (D) to view locations of drones within arena visually, press (E) to view locations of drones and information on co-ordinate locations, press (M) to re-position all drones and view display again or press (Q) to quit.  ");
+            System.out.print("Press (A):add a drone, press (I):info, press (D):view drones visually, press (E): view drones and info, press (M): reposition drones or press (Q) to quit.  ");
             ch = input.next().charAt(0);
             input.nextLine();
             switch (ch) {
@@ -34,7 +39,8 @@ public class DroneInterface {
                 case 'E', 'e' -> displayandinfo();
                 case 'I', 'i' -> System.out.print(myArena.toString());
                 case 'x' -> ch = 'X';
-                case 'q', 'Q' -> exit(0); // when X detected program ends
+                case 'q', 'Q' -> exit(0);
+                // when X detected program ends
             }
         } while (ch != 'X');						// test if end
         input.close();									// close scanner
@@ -50,6 +56,12 @@ public class DroneInterface {
         doDisplay();
         }
 
+    public void keyPressed(KeyEvent esc) {
+        int keyCode = esc.getKeyCode();
+        System.out.println(keyCode);
+    }
+
+        //TODO: Find a mechanism to simply the below (via inheritance)
     // the following method allows the implementation of a display to be created via the use of variables collected from DroneArena
     void doDisplay(){
         if (myArena.getX() > 0 && myArena.getY() > 0){

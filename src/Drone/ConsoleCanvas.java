@@ -42,14 +42,14 @@ public class ConsoleCanvas {
     }
 
     public String toString() {
-        StringBuilder str = new StringBuilder();
+        StringBuilder strBuild = new StringBuilder();
         for (int x = 0; x < canvasSideX; x++) {
             for (int y = 0; y < canvasSideY; y++) {
-                str.append(canvas[x][y]).append(" ");
+                strBuild.append(canvas[x][y]).append(" ");
             }
-            str.append("\n");
+            strBuild.append("\n");
         }
-        return str.toString();
+        return strBuild.toString();
     }
 
 

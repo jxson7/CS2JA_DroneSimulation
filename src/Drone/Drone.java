@@ -52,6 +52,7 @@ public class Drone {
         // << call the showIt method in c to put a D where the drone is
     }
 
+    //TODO: Refactor
     public void tryToMove(DroneArena a) {
         switch (direct ) {
             case north:

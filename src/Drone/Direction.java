@@ -1,9 +1,12 @@
 package Drone;
 import java.util.*;
 
+/**
+ *
+ */
 
 public enum Direction {
-    north, south,east,west;
+    north,south,east,west;
 
     public Direction nextDir() {
         if (this.ordinal() == 3)
