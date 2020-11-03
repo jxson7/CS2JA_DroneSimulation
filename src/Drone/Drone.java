@@ -52,35 +52,64 @@ public class Drone {
         // << call the showIt method in c to put a D where the drone is
     }
 
-    //TODO: Refactor
+//    //TODO: Refactor
+//    public void tryToMove(DroneArena a) {
+//        switch (direct ) {
+//            case north:
+//                if (a.canMoveHere(posX - 1, posY)) // checks move eligibility
+//                    posX = posX - 1; // drone moves
+//                else
+//                    direct = direct.nextDir(); // changes direction
+//                break;
+//            case south:
+//                 if (a.canMoveHere(posX + 1, posY))
+//                  posX = posX + 1;
+//                else
+//                    direct = direct.nextDir();
+//
+//                break;
+//            case east:
+//                if (a.canMoveHere(posX, posY + 1))
+//                    posY = posY + 1;
+//                else
+//                    direct = direct.nextDir();
+//                break;
+//            case west:
+//                if (a.canMoveHere(posX, posY - 1))
+//                    posY = posY - 1;
+//                else
+//                    direct = direct.nextDir();
+//                break;
+//            default:
+//                break;
+//        }
+//    }
+
     public void tryToMove(DroneArena a) {
-        switch (direct ) {
-            case north:
-                if (a.canMoveHere(posX - 1, posY)) // checks move eligibility
-                    posX = posX - 1; // drone moves
-                else
-                    direct = direct.nextDir(); // changes direction
-                break;
-            case south:
-                if (a.canMoveHere(posX + 1, posY))
-                    posX = posX + 1;
-                else
-                    direct = direct.nextDir();
-                break;
-            case east:
-                if (a.canMoveHere(posX, posY + 1))
-                    posY = posY + 1;
-                else
-                    direct = direct.nextDir();
-                break;
-            case west:
-                if (a.canMoveHere(posX, posY - 1))
-                    posY = posY - 1;
-                else
-                    direct = direct.nextDir();
-                break;
-            default:
-                break;
+        if (direct == Direction.north) {
+            if (a.canMoveHere(posX - 1, posY)) // checks move eligibility
+                posX = posX - 1; // drone moves
+            else {
+                direct = direct.nextDir(); // changes direction
+            }
+        }
+        if (direct == Direction.south) {
+            if (a.canMoveHere(posX + 1, posY))
+                posX = posX + 1;
+            else
+                direct = direct.nextDir();
+        }
+        if (direct == Direction.east) {
+            if (a.canMoveHere(posX, posY + 1))
+                posY = posY + 1;
+            else
+                direct = direct.nextDir();
+        }
+        if (direct == Direction.west) {
+            if (a.canMoveHere(posX, posY - 1))
+                posY = posY - 1;
+            else
+                direct = direct.nextDir();
         }
     }
 

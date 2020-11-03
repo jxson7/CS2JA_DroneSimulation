@@ -11,8 +11,6 @@ public class DroneArena {
         yDimensions = height;
     }
 
-
-
     //setters and getters implemented for future purposes
     public void setxDimensions(){ this.xDimensions = xDimensions; }
     public void setyDimensions(){ this.yDimensions = yDimensions; }
@@ -22,8 +20,6 @@ public class DroneArena {
     public int getY(){
         return yDimensions;
     }
-
-
 
     /**
      * search arraylist of droneList to see if there is a drone at x,y
@@ -37,7 +33,6 @@ public class DroneArena {
             return droneTest;
         }
         return null;
-
     }
 
     public void showDrones(ConsoleCanvas c) {
@@ -49,14 +44,10 @@ public class DroneArena {
         for (Drone d : droneList) {
             d.tryToMove(this);
         }
-
     }
-
     public boolean canMoveHere(int x, int y) {
         return getDroneAt(x, y) == null && x < xDimensions && y < yDimensions && x >= 0 && y >= 0;
     }
-
-
 
         public void addDrone() {
             Random random;

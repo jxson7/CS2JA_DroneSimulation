@@ -61,15 +61,11 @@ public class DroneInterface {
         System.out.println(keyCode);
     }
 
-        //TODO: Find a mechanism to simply the below (via inheritance)
     // the following method allows the implementation of a display to be created via the use of variables collected from DroneArena
     void doDisplay(){
         if (myArena.getX() > 0 && myArena.getY() > 0){
-            ConsoleCanvas canvas = new ConsoleCanvas(myArena.getX() + 2, myArena.getY() + 2);
+            ConsoleCanvas canvas = new ConsoleCanvas(myArena.getX() + 2 , myArena.getY() + 2 );
             myArena.showDrones(canvas);
-            if (myArena.droneList.isEmpty()){
-                System.out.println("Unfortunately no drone has currently exists, please try again later");
-            }
             System.out.println(canvas.toString()); // displays arena
         }
     }
