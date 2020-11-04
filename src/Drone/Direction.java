@@ -12,7 +12,7 @@ public enum Direction {
         if (this.ordinal() == 3)
             return values()[0];
         else
-            return values()[this.ordinal() + 1];
+            return values()[this.ordinal() + 2];
     }
 
     public static Direction randomDir() {

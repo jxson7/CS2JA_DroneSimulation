@@ -28,11 +28,16 @@ public class DroneArena {
      * @return null if no Drone there, otherwise return drone
      */
     public Drone getDroneAt(int x, int y) {
-        Drone e = null;
-        for (Drone droneTest : droneList) {
-            return droneTest;
+        Drone a = null;
+        for (Drone d : droneList) {// for the list of drones in the array
+            if (d.isHere(x, y) == true) {// check if isHere is true(if sx and sy exist)
+                return a = d;// then return d meaning position id clear put drone in array
+            } else {
+                return a;// otherwise null
+            }
         }
-        return null;
+        return a;
+
     }
 
     public void showDrones(ConsoleCanvas c) {
@@ -46,7 +51,10 @@ public class DroneArena {
         }
     }
     public boolean canMoveHere(int x, int y) {
-        return getDroneAt(x, y) == null && x < xDimensions && y < yDimensions && x >= 0 && y >= 0;
+        if (getDroneAt(x, y) != null || x >= xDimensions || y >= yDimensions || x < 0 || y < 0)
+            return false;
+        else
+        return true;
     }
 
         public void addDrone() {
