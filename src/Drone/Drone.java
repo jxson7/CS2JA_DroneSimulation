@@ -44,7 +44,7 @@ public class Drone {
      * @return string stating location of both x and y co ordinates.
      */
     public String toString() {
-        return "Drone is at: " + posX + "," + posY + "." + "in the direction of: " + direct.toString() + "./n";
+        return "Drone is at: " + posX + "," + posY + "." + "in the direction of: " + direct.toString() + ".";
     }
 
     /**
