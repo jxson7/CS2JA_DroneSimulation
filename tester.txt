@@ -1,0 +1,1 @@
+Your existing drone arena is set to:40 , 40. Set (1): (37,32, and direction). Set (2): (25,14, and direction). Set (3): (17,1, and direction). Set (4): (37,7, and direction). Set (5): (7,3, and direction). Set (6): (15,33, and direction). Set (7): (20,12, and direction). Set (8): (9,26, and direction). 

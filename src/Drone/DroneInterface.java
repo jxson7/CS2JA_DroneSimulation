@@ -8,7 +8,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import static java.lang.System.exit;
-import java.awt.event.*;
 import java.util.concurrent.TimeUnit;
 import javax.swing.*;
 
@@ -28,8 +27,9 @@ public class DroneInterface extends Component {
 
         // scanner used for input from user
         Scanner input = new Scanner(System.in);
-        myArena = new DroneArena(20, 20); //preset size
-        char options = ' ';
+        myArena = new DroneArena(20, 20);         //preset size
+
+        char options;
         do {
             System.out.println("Welcome to the Drone Simulator. Please select one of the following options:\n" +
                     "(A) to add a drone\n"+
@@ -106,19 +106,14 @@ public class DroneInterface extends Component {
 
     }
 
-    public void keyPressed(KeyEvent esc) {
-        int keyCode = esc.getKeyCode();
-        System.out.println(keyCode);
-    }
-
     private void fileSystem() throws IOException {
         Scanner inp = new Scanner(System.in);
         System.out.println("Please select one of the following options: Press (a) save a file, Press (b) to load a pre-existing file");
-        char options = ' ';
+        char options;
         options = inp.next().charAt(0);
         switch (options) {
             case 'a':
-                JFrame parentFrame = new JFrame();
+                new JFrame();
                 JFileChooser chooser;
                 File f = new File("C:\\Users\\jason\\UoR\\Y2\\Java Term1\\DroneSimulationProject");
                 chooser = new JFileChooser(f);
@@ -148,7 +143,7 @@ public class DroneInterface extends Component {
 
             case 'b':
                 //TODO: work on splitting elements to add to Arena
-                parentFrame = new JFrame();
+                new JFrame();
                 f = new File("C:\\Users\\jason\\UoR\\Y2\\Java Term1\\DroneSimulationProject");
                 chooser = new JFileChooser(f);
                 int opener = chooser.showOpenDialog(this);
@@ -163,9 +158,6 @@ public class DroneInterface extends Component {
 
     }
 
-
-    private void saveFile() throws IOException {
-    }
 
 
     // the following method allows the implementation of a display to be created via the use of variables collected from DroneArena
