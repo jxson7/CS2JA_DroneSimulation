@@ -147,7 +147,7 @@ public class DroneInterface extends Component {
                 }
 
             case 'b':
-                //TODO: work on splitting elements to add to Arena 
+                //TODO: work on splitting elements to add to Arena
                 parentFrame = new JFrame();
                 f = new File("C:\\Users\\jason\\UoR\\Y2\\Java Term1\\DroneSimulationProject");
                 chooser = new JFileChooser(f);
