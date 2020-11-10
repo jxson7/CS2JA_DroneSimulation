@@ -137,6 +137,7 @@ public class DroneInterface extends Component {
                         fileWriter.write(", and direction");
                         fileWriter.write(Integer.toString(d.getDirect().ordinal()));
                         fileWriter.write("). ");
+
                     }
                     fileWriter.close();
                 }
