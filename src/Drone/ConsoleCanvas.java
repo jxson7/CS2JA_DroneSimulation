@@ -20,17 +20,10 @@ public class ConsoleCanvas {
         for (int i = 0; i < canvasSideX; i++) {
             for (int j = 0; j < canvasSideY; j++) {
                 canvas[i][j] = ' ';
-                if (j == y - 1) {
+                if (j == y - 1 || i == x - 1 ) {
                     canvas[i][j] = '#';
                 }
-                    if (i == 0) {
-                    canvas[i][j] = '#';
-                }
-                if (j == 0) {
-                    canvas[i][j] = '#';
-                }
-
-                if (i == x - 1) {
+                if (i == 0 || j == 0 ) {
                     canvas[i][j] = '#';
                 }
             }
@@ -43,9 +36,9 @@ public class ConsoleCanvas {
 
     public String toString() {
         StringBuilder strBuild = new StringBuilder();
-        for (int x = 0; x < canvasSideX; x++) {
-            for (int y = 0; y < canvasSideY; y++) {
-                strBuild.append(canvas[x][y]).append(" ");
+        for (int i = 0; i < canvasSideX; i++) {
+            for (int j =  0; j < canvasSideY; j++) {
+                strBuild.append(canvas[i][j]).append("  ");
             }
             strBuild.append("\n");
         }
@@ -54,10 +47,10 @@ public class ConsoleCanvas {
 
 
 
-    public static void main(String[] args) {
-        ConsoleCanvas c = new ConsoleCanvas (10, 5);	// create a canvas
-        c.showIt(4,3,'X');								// add a Drone at 4,3
-        System.out.println(c.toString());				// display result
-    }
+//    public static void main(String[] args) {
+//        ConsoleCanvas c = new ConsoleCanvas (10, 5);	// create a canvas
+//        c.showIt(4,3,'+');								// add a Drone at 4,3
+//        System.out.println(c.toString());				// display result
+//    }
 }
 
