@@ -69,7 +69,8 @@ public class DroneArena {
 
     public String toString() {
         //return "Drone is of size " + xco + " , " + yco;
-        StringBuilder arena = new StringBuilder("Drone arena is of size: " + xDimensions + ", " + yDimensions + ". ");
+        StringBuilder arena;
+        arena = new StringBuilder("Drone arena is of size: " + xDimensions + ", " + yDimensions + ". ");
         for (Drone drone : droneList) {
             arena.append(drone.toString());
         }

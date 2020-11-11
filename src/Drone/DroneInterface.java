@@ -2,10 +2,7 @@ package Drone;
 
 
 import java.awt.*;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 import static java.lang.System.exit;
 import java.util.concurrent.TimeUnit;
@@ -16,6 +13,7 @@ public class DroneInterface extends Component {
     public int valX;
     public int valY;
     public int id;
+    public int xSize, ySize;
     private DroneArena myArena;                // arena in which drones are shown
 
     /**
@@ -122,21 +120,21 @@ public class DroneInterface extends Component {
                     File file = chooser.getSelectedFile();
                     FileWriter fw = new FileWriter(chooser.getSelectedFile());
                     BufferedWriter fileWriter = new BufferedWriter(fw);
-                    fileWriter.write("Your existing drone arena is set to: ");
+                  //  fileWriter.write("Your existing drone arena is set to: ");
                     fileWriter.write(Integer.toString(myArena.getX()));
-                    fileWriter.write(",");
+                   // fileWriter.write(",");
                     fileWriter.write(Integer.toString(myArena.getY()));
-                    fileWriter.write(". ");
+                  //  fileWriter.write(". ");
                     for (Drone d : myArena.droneList) {
                         id++;
-                        fileWriter.write("Set (" +id + "): ");
-                        fileWriter.write("(");
+                   //     fileWriter.write("Set: ");
+                    //    fileWriter.write("(");
                         fileWriter.write(Integer.toString(d.getPosX()));
-                        fileWriter.write(",");
+                      //  fileWriter.write(",");
                         fileWriter.write(Integer.toString(d.getPosY()));
-                        fileWriter.write(", and direction");
+                      //  fileWriter.write(", and direction ");
                         fileWriter.write(Integer.toString(d.getDirect().ordinal()));
-                        fileWriter.write("). ");
+                       // fileWriter.write("). ");
 
                     }
                     fileWriter.close();
@@ -145,20 +143,45 @@ public class DroneInterface extends Component {
             case 'b':
                 //TODO: work on splitting elements to add to Arena
                 new JFrame();
+                String contents = " ";
                 f = new File("C:\\Users\\jason\\UoR\\Y2\\Java Term1\\DroneSimulationProject");
                 chooser = new JFileChooser(f);
                 int opener = chooser.showOpenDialog(this);
-                if (opener == JFileChooser.APPROVE_OPTION) {
-                    File selectedFile = chooser.getSelectedFile();
-                    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+                int returnVal = chooser.showOpenDialog(null); // stores if user clicks open/cancel
+                if (returnVal == JFileChooser.APPROVE_OPTION) {// if user presses open
+                    File userFile = chooser.getSelectedFile(); // gets the file selected by user
+                    if (chooser.getSelectedFile().isFile()) { // if the file exists
+                        System.out.println("Arena Loaded!\n" + "File Name: " + userFile.getName() + "\nDirectory: "
+                                + userFile.getAbsolutePath());// prints file chosen and directory
+
+                        FileReader fr = new FileReader(userFile);
+                        BufferedReader br = new BufferedReader(fr);
+                        contents = br.readLine();
+                        String[] sizeFinder = contents.split(" ");
+                        xSize = Integer.parseInt(sizeFinder[0]);
+                        ySize = Integer.parseInt(sizeFinder[1]);
+                       // boolean empty = f.length() == 0;
+
+                        while (br.readLine() != null) {
+                            contents = br.readLine();
+                            String[] coordinates = contents.split(" ");
+                            int x = Integer.parseInt(coordinates[0]);
+                            int y = Integer.parseInt(coordinates[1]);
+                            int direction = Integer.parseInt(coordinates[2]);
+                            myArena.droneList.add(new Drone(x, y, Direction.values()[direction]));
+
+                        }
+                        br.close();
+
+
+                    }
+
+
                 }
-
-
 
         }
 
     }
-
 
 
     // the following method allows the implementation of a display to be created via the use of variables collected from DroneArena
