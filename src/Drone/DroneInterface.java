@@ -120,24 +120,21 @@ public class DroneInterface extends Component {
                     File file = chooser.getSelectedFile();
                     FileWriter fw = new FileWriter(chooser.getSelectedFile());
                     BufferedWriter fileWriter = new BufferedWriter(fw);
-                  //  fileWriter.write("Your existing drone arena is set to: ");
                     fileWriter.write(Integer.toString(myArena.getX()));
-                   // fileWriter.write(",");
+                    fileWriter.write(" ");
                     fileWriter.write(Integer.toString(myArena.getY()));
-                  //  fileWriter.write(". ");
+                    fileWriter.newLine(); // change line
+                    // Each line store one drone in the form X Y DIRECTION
                     for (Drone d : myArena.droneList) {
-                        id++;
-                   //     fileWriter.write("Set: ");
-                    //    fileWriter.write("(");
                         fileWriter.write(Integer.toString(d.getPosX()));
-                      //  fileWriter.write(",");
+                        fileWriter.write(" ");
                         fileWriter.write(Integer.toString(d.getPosY()));
-                      //  fileWriter.write(", and direction ");
+                        fileWriter.write(" ");
                         fileWriter.write(Integer.toString(d.getDirect().ordinal()));
-                       // fileWriter.write("). ");
-
+                        fileWriter.newLine();
                     }
                     fileWriter.close();
+
                 }
 
             case 'b':
