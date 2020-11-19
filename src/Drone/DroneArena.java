@@ -3,9 +3,11 @@ import java.util.*;
 
 
 public class DroneArena {
-    public int xDimensions, yDimensions;
+    public int xDimensions;
+    public int yDimensions;
     ArrayList<Drone> droneList = new ArrayList<Drone>();
     Drone droneTest;
+
     DroneArena(int width, int height){
         xDimensions = width;
         yDimensions = height;
@@ -30,14 +32,13 @@ public class DroneArena {
     public Drone getDroneAt(int x, int y) {
         Drone a = null;
         for (Drone d : droneList) {// for the list of drones in the array
-            if (d.isHere(x, y) == true) {// check if isHere is true(if sx and sy exist)
+            if (d.isHere(x, y)) {// check if isHere is true(if sx and sy exist)
                 return a = d;// then return d meaning position id clear put drone in array
             } else {
                 return a;// otherwise null
             }
         }
         return a;
-
     }
 
     public void showDrones(ConsoleCanvas c) {
@@ -51,38 +52,41 @@ public class DroneArena {
         }
     }
     public boolean canMoveHere(int x, int y) {
-        if (getDroneAt(x, y) != null || x >= xDimensions || y >= yDimensions || x < 0 || y < 0)
-            return false;
-        else
+        //return getDroneAt(x, y) == null && x < xDimensions && y < yDimensions && x >= 0 && y >= 0;
+    if (x < 0 || x >= xDimensions || y < 0 || y >= yDimensions){
+        return false;
+    }else if (getDroneAt(x,y) != null){
+        return false;
+    } else {
         return true;
+        }
     }
 
         public void addDrone() {
             Random random;
-            random = new Random();
-            int xco = (int) (Math.random() * ((xDimensions) + 1));
-            int yco = (int) (Math.random() * ((yDimensions) + 1));
+            int xco, yco;
 
-            droneTest = new Drone(xco, yco, Direction.randomDir());
-            droneList.add(droneTest);
+            random = new Random();
+            if (droneList.size() < xDimensions * yDimensions){
+                do{
+                     xco = (int) (Math.random() * ((xDimensions) + 1));
+                     yco = (int) (Math.random() * ((yDimensions) + 1));
+                }while(getDroneAt(xco, yco) != null);
+                droneTest = new Drone(xco, yco, Direction.randomDir());
+                droneList.add(droneTest);
+            }
         }
 
     public String toString() {
-        //return "Drone is of size " + xco + " , " + yco;
-        StringBuilder arena;
-        arena = new StringBuilder("Drone arena is of size: " + xDimensions + ", " + yDimensions + ". ");
-        for (Drone drone : droneList) {
-            arena.append(drone.toString());
+        StringBuilder s = new StringBuilder("The arena size is " + xDimensions + " x " + yDimensions + " and: " + "\n");
+
+        for (Drone d : droneList) {// for all the drones inside the arraylist have them in the string
+            s.append(d.toString()).append("\n");
         }
-        return arena.toString();
+        return s.toString();
     }
 
 
-// Tester Class
-//    public static void main(String[] args) {
-//        DroneArena a = new DroneArena(20, 10);	// create drone arena
-//        a.addDrone();
-//        System.out.println(a.toString());	// print where is
-//    }
+
 
 }

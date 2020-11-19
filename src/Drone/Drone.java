@@ -7,9 +7,8 @@
 package Drone;
 
 public class Drone {
-    public int posX;
-    public int posY;
-    public int dx,dy;
+    private int posX;
+    private int posY;
     private Direction direct;
 
 
@@ -33,42 +32,32 @@ public class Drone {
     public int getPosY(){
         return posY;
     }
-    public int getDx(){return dx;}
-    public int getDy(){return dy;}
-    public void setDx(int setDx){this.dx = dx;}
-    public void setDy(int setDy){this.dy = dy;}
     public Direction getDirect() { return direct; }
     public void setDirect(Direction direct) { this.direct = direct; }
 
-    /**
-     * @return string stating location of both x and y co ordinates.
-     */
-    public String toString() {
-        return "Drone is at: " + posX + "," + posY + "." + "in the direction of: " + direct.toString() + ".";
-    }
 
     /**
      *
-     * @param canvas: sends the canvas data to the console canvas as a method to allow a display.
+     * @param c: sends the canvas data to the console canvas as a method to allow a display.
      */
-    public void displayDrone(ConsoleCanvas canvas) {
-        char arenaBorder = '*';
-        canvas.showIt(posX, posY, arenaBorder);
+    public void displayDrone(ConsoleCanvas c) {
+        char arenaBorder = 'X';
+        c.showIt(posX, posY, arenaBorder);
         // << call the showIt method in c to put a D where the drone is
     }
 
-////    //TODO: Refactor
+
     public void tryToMove(DroneArena a) {
-        switch (direct ) {
+        switch (direct) {
             case north:
                 if (a.canMoveHere(posX - 1, posY)) // checks move eligibility
-                    posX = posX - 1 ; // drone moves
+                    posX = posX - 1; // drone moves
                 else
                     direct = direct.nextDir(); // changes direction
                 break;
             case south:
-                 if (a.canMoveHere(posX + 1, posY))
-                  posX =  posX + 1;
+                if (a.canMoveHere(posX + 1, posY))
+                    posX = posX + 1;
                 else
                     direct = direct.nextDir();
                 break;
@@ -80,63 +69,39 @@ public class Drone {
                 break;
             case west:
                 if (a.canMoveHere(posX, posY - 1))
-                    posY = posY - 1 ;
+                    posY = posY - 1;
                 else
                     direct = direct.nextDir();
                 break;
             default:
+//                if (posX >= ConsoleCanvas.canvasSideX) {
+//                    if (posY >= ConsoleCanvas.canvasSideY) {
+//                        posX.tryToMove(a);
+//                        posY.tryToMove(a);
+//                    }
+//                }
                 break;
         }
+
     }
 
 
-//    public void tryToMove(DroneArena a) {
-//        int newx = posX + dx;
-//        int newy = posY + dy;
+//        if (posX >= ConsoleCanvas.canvasSideX){
+//            posX.tryToMove(a);
+//            if (posY >= ConsoleCanvas.canvasSideY){
 //
-//        switch (a.canMoveHere(newx,newy)){
-//            case 0: x = newx;
-//                    y = newy;
-//        }
 //
-//    }
-
-//
-//    case NORTH:
-//            if (posX - 1) >= 0{
-//                posX = posX -1;
-//    }
-//
-//            case EAST:
-//                    if (posy + 1) < move
-//
-
-
-//    public void tryToMove(DroneArena a) {
-//        if (direct == Direction.north) {
-//            if (a.canMoveHere(posX - 1, posY)) // checks move eligibility
-//                posX = posX - 1; // drone moves
-//            else {
-//                direct = direct.nextDir(); // changes direction
+//                posY.tryToMove(a);
 //            }
+//
 //        }
-//        if (direct == Direction.south) {
-//            if (a.canMoveHere(posX + 1, posY))
-//                posX = posX + 1;
-//            else
-//                direct = direct.nextDir();
-//        }
-//        if (direct == Direction.east) {
-//            if (a.canMoveHere(posX, posY + 1))
-//                posY = posY + 1;
-//            else
-//                direct = direct.nextDir();
-//        }
-//        if (direct == Direction.west) {
-//            if (a.canMoveHere(posX, posY - 1))
-//                posY = posY - 1;
-//            else
-//                direct = direct.nextDir();
+//
+//    }
+
+//    private void verifer() {
+//        if (posX >= ConsoleCanvas.canvasSideX){
+//            tryToMove();
+//
 //        }
 //    }
 
@@ -144,16 +109,28 @@ public class Drone {
     // Method of validation to confirm that the drone exists in the said position
     public boolean isHere(int xVal, int yVal){
         // if the values droneX, droneY(position of drone) is the same as other x,y
-        return posX == xVal && posY == yVal;
+        if (posX == xVal && posY == yVal) {// if the values droneX, droneY(position of drone) is the same as other x,y
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
+    /**
+     * @return string stating location of both x and y co ordinates.
+     */
 
-    public static void main(String[] args) {
-        Drone d = new Drone(5,3, Direction.east);		// create drone
-        System.out.println(d.toString());	// print where is
-        Drone x = new Drone(5,5, Direction.south);
-        System.out.println(x.toString());
+    public String toString() {
+        return "Drone is at: " + posX + "," + posY + "." + "in the direction of: " + direct.toString() + ".";
     }
+//
+//    public static void main(String[] args) {
+//        Drone d = new Drone(5,3, Direction.east);		// create drone
+//        System.out.println(d.toString());	// print where is
+//        Drone x = new Drone(5,5, Direction.south);
+//        System.out.println(x.toString());
+//    }
 
 
 
