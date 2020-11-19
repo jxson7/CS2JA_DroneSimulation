@@ -6,6 +6,7 @@
 
 package Drone;
 
+// initial setup of the Drone setup
 public class Drone {
     private int posX;
     private int posY;
@@ -46,7 +47,7 @@ public class Drone {
         // << call the showIt method in c to put a D where the drone is
     }
 
-
+    // compares eligibility of all positions to see if it is successful. If available, drone will move to suitable position.
     public void tryToMove(DroneArena a) {
         switch (direct) {
             case north:
@@ -74,46 +75,17 @@ public class Drone {
                     direct = direct.nextDir();
                 break;
             default:
-//                if (posX >= ConsoleCanvas.canvasSideX) {
-//                    if (posY >= ConsoleCanvas.canvasSideY) {
-//                        posX.tryToMove(a);
-//                        posY.tryToMove(a);
-//                    }
-//                }
+//
                 break;
         }
 
     }
 
-
-//        if (posX >= ConsoleCanvas.canvasSideX){
-//            posX.tryToMove(a);
-//            if (posY >= ConsoleCanvas.canvasSideY){
-//
-//
-//                posY.tryToMove(a);
-//            }
-//
-//        }
-//
-//    }
-
-//    private void verifer() {
-//        if (posX >= ConsoleCanvas.canvasSideX){
-//            tryToMove();
-//
-//        }
-//    }
-
-
     // Method of validation to confirm that the drone exists in the said position
     public boolean isHere(int xVal, int yVal){
         // if the values droneX, droneY(position of drone) is the same as other x,y
-        if (posX == xVal && posY == yVal) {// if the values droneX, droneY(position of drone) is the same as other x,y
-            return true;
-        } else {
-            return false;
-        }
+        // if the values droneX, droneY(position of drone) is the same as other x,y
+        return posX == xVal && posY == yVal;
 
     }
 
@@ -121,16 +93,11 @@ public class Drone {
      * @return string stating location of both x and y co ordinates.
      */
 
+    // process of toString to print coordinates and the direction of the said drone
     public String toString() {
         return "Drone is at: " + posX + "," + posY + "." + "in the direction of: " + direct.toString() + ".";
     }
-//
-//    public static void main(String[] args) {
-//        Drone d = new Drone(5,3, Direction.east);		// create drone
-//        System.out.println(d.toString());	// print where is
-//        Drone x = new Drone(5,5, Direction.south);
-//        System.out.println(x.toString());
-//    }
+
 
 
 

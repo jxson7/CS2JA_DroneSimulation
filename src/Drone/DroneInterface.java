@@ -1,18 +1,19 @@
 package Drone;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.util.Scanner;
-import static java.lang.System.exit;
 import java.util.concurrent.TimeUnit;
-import javax.swing.*;
+
+import static java.lang.System.exit;
 
 public class DroneInterface extends Component {
 
-    public int valX,valY, id;
+    public int valX, valY;
     public int xSize, ySize;
-    private DroneArena myArena;                // arena in which drones are shown
     public int counter;
+    private DroneArena myArena;                // arena in which drones are shown
 
     /**
      * constructor for DroneInterface
@@ -22,11 +23,20 @@ public class DroneInterface extends Component {
     public DroneInterface() throws IOException {
 
         // scanner used for input from user
+
+        System.out.println("Welcome to Drone Simulator. Enter your arena size to start: ");
         Scanner input = new Scanner(System.in);
-        myArena = new DroneArena(20, 20);
+        System.out.print("Please enter your x co-ordinate to set your arena: ");
+        valX = input.nextInt();
+        System.out.print("Please enter your y co-ordinate to set your arena: ");
+        valY = input.nextInt();// set up scanner for user input
+        myArena = new DroneArena(valX, valY);
+        System.out.println("___________________________________________");
+
         System.out.println("Welcome to the Drone Simulator by Jason J Dookarun. Please select one of the following options:\n");//preset size
 
         char options;
+        // implements a new timer to delay the menu, so that other processes can be viewed
         do {
             try {
                 TimeUnit.MILLISECONDS.sleep(100);
@@ -34,7 +44,8 @@ public class DroneInterface extends Component {
                 e.printStackTrace();
             }
 
-            System.out.println("(A) to add a drone\n"+
+            // provides the user with all the appropriate options
+            System.out.println("(A) to add a drone\n" +
                     "(D) to view all drones visually\n" +
                     "(E) to view all drones and the relevant information\n" +
                     "(F) to either save/load file(s)\n" +
@@ -46,9 +57,9 @@ public class DroneInterface extends Component {
             System.out.print("Your selection: ");
 
 
-            //System.out.print("Press (A):add a drone, press (I):info, press (D):view drones visually, press (E): view drones and info, (F) save or load a pre-existing file, press (R) for random 10, press (M): reposition drones or press (Q) to quit.  ");
             options = input.next().charAt(0);
             input.nextLine();
+            // allows a division to remove any form of clustered code :)
             switch (options) {
                 case 'A', 'a' -> newDrone();    // add a new drone to arena
                 case 'D', 'd' -> doDisplay();
@@ -66,18 +77,24 @@ public class DroneInterface extends Component {
         input.close();                                    // close scanner
     }
 
+    // initiates drone interface by calling the appropriate methods
+    public static void main(String[] args) throws IOException {
+        DroneInterface r = new DroneInterface();
+    }
+
+    // new drone involves adding a drone, and has a exception catcher to stop further drones from being added if max capacity is met
     private void newDrone() {
-        if (counter >= ((myArena.xDimensions) *  (myArena.yDimensions))){
+        if (counter >= ((myArena.xDimensions) * (myArena.yDimensions))) {
             System.out.println("You've reached the max!");
-        }else {
+        } else {
             myArena.addDrone();
             System.out.println("New Drone Added");
             counter++;
         }
         System.out.println("___________________________________________");
-
     }
 
+    // new arena provides the user with the option to enter a new arena
     private void newArena() {
         Scanner input = new Scanner(System.in);
         System.out.print("Please enter your x co-ordinate to set your arena: ");
@@ -88,6 +105,7 @@ public class DroneInterface extends Component {
         System.out.println("___________________________________________");
     }
 
+    // the animation process involves the movement of all drones 10 times,w/ a delay of 200 ms
     public void animation() {
         int counter = 10;
         for (int i = 0; i < counter; i++) {
@@ -104,6 +122,7 @@ public class DroneInterface extends Component {
 
     }
 
+    // display and info focuses on printing total number of drones and the current arena printout,via terminal
     private void displayandinfo() {
         System.out.println("You currently have: " + counter);
         doDisplay();
@@ -112,6 +131,7 @@ public class DroneInterface extends Component {
 
     }
 
+    // reposition involves moving all drones and viewing the immediate impact
     private void reposition() {
         doDisplay();
         System.out.print(myArena.toString());
@@ -124,12 +144,15 @@ public class DroneInterface extends Component {
 
     }
 
+    // this allows the user to save and/or load an existing arena file.
     private void fileSystem() throws IOException {
         Scanner inp = new Scanner(System.in);
         System.out.println("Please select one of the following options: Press (a) save a file, Press (b) to load a pre-existing file");
         char options;
         options = inp.next().charAt(0);
         switch (options) {
+            // focuses on saving a file from a directory
+
             case 'a':
                 new JFrame();
                 JFileChooser chooser;
@@ -137,7 +160,7 @@ public class DroneInterface extends Component {
                 chooser = new JFileChooser(f);
                 int retriever = chooser.showSaveDialog(this);
                 if (retriever == JFileChooser.APPROVE_OPTION) {
-                    File file = chooser.getSelectedFile();
+                    // File file = chooser.getSelectedFile();
                     FileWriter fw = new FileWriter(chooser.getSelectedFile());
                     BufferedWriter fileWriter = new BufferedWriter(fw);
                     fileWriter.write("Arena Size:");
@@ -158,11 +181,11 @@ public class DroneInterface extends Component {
                     fileWriter.close();
 
                 }
-
+                // focuses on loading a file from a directory
             case 'b':
                 //TODO: work on splitting elements to add to Arena
                 new JFrame();
-                String contents = " ";
+                String contents;
                 f = new File("C:\\Users\\jason\\UoR\\Y2\\Java Term1\\DroneSimulationProject");
                 chooser = new JFileChooser(f);
                 int returnVal = chooser.showOpenDialog(this); // stores if user clicks open/cancel
@@ -178,7 +201,7 @@ public class DroneInterface extends Component {
                         String[] sizeFinder = contents.split(" ");
                         xSize = Integer.parseInt(sizeFinder[0]);
                         ySize = Integer.parseInt(sizeFinder[1]);
-                       // boolean empty = f.length() == 0;
+                        // boolean empty = f.length() == 0;
 
                         while (br.readLine() != null) {
                             contents = br.readLine();
@@ -187,16 +210,10 @@ public class DroneInterface extends Component {
                             int y = Integer.parseInt(coordinates[1]);
                             int direction = Integer.parseInt(coordinates[2]);
                             myArena.droneList.add(new Drone(x, y, Direction.values()[direction]));
-
                         }
                         br.close();
-
-
                     }
-
-
                 }
-
         }
 
     }
@@ -214,11 +231,5 @@ public class DroneInterface extends Component {
             System.out.println("\nArena does not exist!"); // if arena does not exist
         }
         System.out.println("___________________________________________");
-
-    }
-
-        // initiates drone interface by calling the appropriate methods
-    public static void main(String[] args) throws IOException {
-        DroneInterface r = new DroneInterface();
     }
 }
