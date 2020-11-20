@@ -3,6 +3,7 @@ package Drone;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -49,7 +50,7 @@ public class DroneInterface {
                     "(D) to view all drones visually\n" +
                     "(E) to view all drones and the relevant information\n" +
                     "(I) to view your existing arena size\n" +
-                    "(L) to load a file" +
+                    "(L) to load a file\n" +
                     "(M) to move all your drones and view the new positions\n" +
                     "(N) to enter a custom arena\n" +
                     "(Q) to exit\n" +
@@ -158,72 +159,84 @@ public class DroneInterface {
     }
 
 
-            void loadFile() throws IOException {
-                new JFrame();
-                String contents;
-                new JFrame();
-                JFileChooser chooser;
-                File f = new File("C:\\Users\\jason\\UoR\\Y2\\Java Term1\\DroneSimulationProject");
-               // f = new File("C:\\Users\\jason\\UoR\\Y2\\Java Term1\\DroneSimulationProject");
-                chooser = new JFileChooser(f);
-                int returnVal = chooser.showOpenDialog(null); // stores if user clicks open/cancel
-                if (returnVal == JFileChooser.APPROVE_OPTION) {// if user presses open
-                    File userFile = chooser.getSelectedFile(); // gets the file selected by user
-                    if (chooser.getSelectedFile().isFile()) { // if the file exists
-                        System.out.println("Arena Loaded!\n" + "File Name: " + userFile.getName() + "\nDirectory: "
-                                + userFile.getAbsolutePath());// prints file chosen and directory
+    void loadFile() throws IOException {
 
-                        FileReader fr = new FileReader(userFile);
-                        BufferedReader br = new BufferedReader(fr);
-                        contents = br.readLine();
-                        String[] sizeFinder = contents.split(" ");
-                        xSize = Integer.parseInt(sizeFinder[0]);
-                        ySize = Integer.parseInt(sizeFinder[1]);
-                        // boolean empty = f.length() == 0;
+        String curDir = System.getProperty("user.dir");
+        JFileChooser chooser = new JFileChooser(curDir);
+        // f = new File("C:\\Users\\jason\\UoR\\Y2\\Java Term1\\DroneSimulationProject");
+        chooser.setDialogTitle("Load arena from: ");// Window title
+        chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);// What files are shown
+        String contents = " ";
+        int returnVal = chooser.showOpenDialog(null); // stores if user clicks open/cancel
+        if (returnVal == JFileChooser.APPROVE_OPTION) {// if user presses open
+            File userFile = chooser.getSelectedFile(); // gets the file selected by user
+            if (chooser.getSelectedFile().isFile()) { // if the file exists
+                System.out.println("Arena Loaded!\n" + "File Name: " + userFile.getName() + "\nDirectory: "  + userFile.getAbsolutePath());// prints file chosen and directory
 
-                       // while (br.readLine() != null) {
-                            contents = br.readLine();
-                            String[] coordinates = contents.split(" ");
-                            int x = Integer.parseInt(coordinates[0]);
-                            int y = Integer.parseInt(coordinates[1]);
-                            int direction = Integer.parseInt(coordinates[2]);
-                            myArena.droneList.add(new Drone(x, y, Direction.values()[direction]));
-                    //    }
-                        br.close();
-                    }
+                // Clear the current drone list
+                if (!myArena.droneList.isEmpty()) {
+                    myArena.droneList.clear();
                 }
-            }
+
+                FileReader fr = new FileReader(userFile);
+                BufferedReader br = new BufferedReader(fr);
+                Scanner fileReader = new Scanner(userFile);
+                contents = br.readLine();
+                String[] sizeFinder = contents.split(",");
+                int xSize = Integer.parseInt(sizeFinder[0]);
+                int ySize = Integer.parseInt(sizeFinder[1]);
+                myArena = new DroneArena(xSize, ySize); // creates a new arena with the gathered dimensions
 
 
+                // boolean empty = f.length() == 0;
 
-            void saveFile () throws IOException {
-                JFileChooser chooser = new JFileChooser("C:\\Users\\jason\\UoR\\Y2\\Java Term1\\DroneSimulationProject");//finds the directory of system
-                chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-                int returnVal = chooser.showOpenDialog(null); //stores user input when they click open or cancel
-                if (returnVal == JFileChooser.APPROVE_OPTION) { //if the user presses open
-                    File userFile = chooser.getSelectedFile();//gathers the selected file
-                    System.out.println("Arena saved!\n" + "File Name: " + userFile.getName() + "\nDirectory: "
-                            + ((File) userFile).getAbsolutePath()); //saves the file in chosen directory
-                    //Code for Saving
-                    FileWriter fileWriter = new FileWriter(userFile); //creates a new file
-                    BufferedWriter writer = new BufferedWriter(fileWriter); //adds file to the buffer
-                    //Saves the arena dimensions first
-                    writer.write(Integer.toString(myArena.getX()));
-                    writer.write(" ");
-                    writer.write(Integer.toString(myArena.getY()));
-                    writer.newLine();
-                    //Saves the drones in the arena one line at a time
-                    for (Drone d : myArena.droneList) {
-                        writer.write(Integer.toString(d.getPosY()));
-                        writer.write(" ");
-                        writer.write(Integer.toString(d.getPosY()));
-                        writer.write(" ");
-                        writer.write(Integer.toString(d.getDirect().ordinal()));
-                        writer.newLine();
+                    while (fileReader.hasNextLine()) { // while not in the end of the file
+                    contents = br.readLine();
+                    String[] numbers = contents.split(",");
+                    int x = Integer.parseInt(numbers[0]); // First integer is drone X coordinate
+                    int y = Integer.parseInt(numbers[1]); // Second integer is drone Y coordinate
+                    int ordinal = Integer.parseInt(numbers[2]); // Third integer is drone facing Direction
+                    // creates drone and adds it do list
+                    myArena.droneList.add(new Drone(x, y, Direction.values()[ordinal]));
+
                     }
-                    writer.close();
-                }
+                br.close();
+
             }
+        }
+    }
+
+
+
+
+    void saveFile () throws IOException {
+        String curDir = System.getProperty("user.dir");
+        JFileChooser chooser = new JFileChooser(curDir);
+        chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        int returnVal = chooser.showOpenDialog(null); //stores user input when they click open or cancel
+        if (returnVal == JFileChooser.APPROVE_OPTION) { //if the user presses open
+            File userFile = chooser.getSelectedFile();//gathers the selected file
+            System.out.println("Arena saved!\n" + "File Name: " + userFile.getName() + "\nDirectory: " + ((File) userFile).getAbsolutePath()); //saves the file in chosen directory
+            //Code for Saving
+            FileWriter fileWriter = new FileWriter(userFile); //creates a new file
+            BufferedWriter writer = new BufferedWriter(fileWriter); //adds file to the buffer
+            //Saves the arena dimensions first
+            writer.write(Integer.toString(myArena.getX()));
+            writer.write(",");
+            writer.write(Integer.toString(myArena.getY()));
+            writer.newLine();
+            //Saves the drones in the arena one line at a time
+            for (Drone d : myArena.droneList) {
+                writer.write(Integer.toString(d.getPosY()));
+                writer.write(",");
+                writer.write(Integer.toString(d.getPosY()));
+                writer.write(",");
+                writer.write(Integer.toString(d.getDirect().ordinal()));
+                writer.newLine();
+            }
+            writer.close();
+        }
+    }
 
 
 
