@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import static java.lang.System.exit;
 
-public class DroneInterface extends Component {
+public class DroneInterface {
 
     public int valX, valY;
     public int xSize, ySize;
@@ -20,7 +20,7 @@ public class DroneInterface extends Component {
      * sets up scanner used for input and the arena
      * then has main loop allowing user to enter commands
      */
-    public DroneInterface() throws IOException {
+    public DroneInterface()  {
 
         // scanner used for input from user
 
@@ -48,12 +48,13 @@ public class DroneInterface extends Component {
             System.out.println("(A) to add a drone\n" +
                     "(D) to view all drones visually\n" +
                     "(E) to view all drones and the relevant information\n" +
-                    "(F) to either save/load file(s)\n" +
                     "(I) to view your existing arena size\n" +
+                    "(L) to load a file" +
                     "(M) to move all your drones and view the new positions\n" +
                     "(N) to enter a custom arena\n" +
                     "(Q) to exit\n" +
-                    "(R) to move your drones 10 times and view the changes in real time\n");
+                    "(R) to move your drones 10 times and view the changes in real time\n" +
+                    "(S) to save a file\n");
             System.out.print("Your selection: ");
 
 
@@ -64,12 +65,25 @@ public class DroneInterface extends Component {
                 case 'A', 'a' -> newDrone();    // add a new drone to arena
                 case 'D', 'd' -> doDisplay();
                 case 'E', 'e' -> displayandinfo();
-                case 'F', 'f' -> fileSystem();
                 case 'I', 'i' -> System.out.print(myArena.toString());
+                case 'l', 'L' -> {
+                    try {
+                        loadFile();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
                 case 'M', 'm' -> reposition();
                 case 'N', 'n' -> newArena();
                 case 'q', 'Q' -> exit(0);
                 case 'r', 'R' -> animation();
+                case 'S', 's' -> {
+                    try {
+                        saveFile();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
                 case 'x' -> options = 'X';
                 // when X detected program ends
             }
@@ -137,58 +151,22 @@ public class DroneInterface extends Component {
         System.out.print(myArena.toString());
 
         myArena.moveAllDrones();
+
         doDisplay();
         System.out.print(myArena.toString());
         System.out.println("___________________________________________");
-
-
     }
 
-    // this allows the user to save and/or load an existing arena file.
-    private void fileSystem() throws IOException {
-        Scanner inp = new Scanner(System.in);
-        System.out.println("Please select one of the following options: Press (a) save a file, Press (b) to load a pre-existing file");
-        char options;
-        options = inp.next().charAt(0);
-        switch (options) {
-            // focuses on saving a file from a directory
 
-            case 'a':
+            void loadFile() throws IOException {
+                new JFrame();
+                String contents;
                 new JFrame();
                 JFileChooser chooser;
                 File f = new File("C:\\Users\\jason\\UoR\\Y2\\Java Term1\\DroneSimulationProject");
+               // f = new File("C:\\Users\\jason\\UoR\\Y2\\Java Term1\\DroneSimulationProject");
                 chooser = new JFileChooser(f);
-                int retriever = chooser.showSaveDialog(this);
-                if (retriever == JFileChooser.APPROVE_OPTION) {
-                    // File file = chooser.getSelectedFile();
-                    FileWriter fw = new FileWriter(chooser.getSelectedFile());
-                    BufferedWriter fileWriter = new BufferedWriter(fw);
-                    fileWriter.write("Arena Size:");
-                    fileWriter.write(Integer.toString(myArena.getX()));
-                    fileWriter.write(" by ");
-                    fileWriter.write(Integer.toString(myArena.getY()));
-                    fileWriter.newLine(); // change line
-                    // Each line store one drone in the form X Y DIRECTION
-                    for (Drone d : myArena.droneList) {
-                        fileWriter.write("Drone: ");
-                        fileWriter.write(Integer.toString(d.getPosX()));
-                        fileWriter.write(" ");
-                        fileWriter.write(Integer.toString(d.getPosY()));
-                        fileWriter.write(" ");
-                        fileWriter.write(Integer.toString(d.getDirect().ordinal()));
-                        fileWriter.newLine();
-                    }
-                    fileWriter.close();
-
-                }
-                // focuses on loading a file from a directory
-            case 'b':
-                //TODO: work on splitting elements to add to Arena
-                new JFrame();
-                String contents;
-                f = new File("C:\\Users\\jason\\UoR\\Y2\\Java Term1\\DroneSimulationProject");
-                chooser = new JFileChooser(f);
-                int returnVal = chooser.showOpenDialog(this); // stores if user clicks open/cancel
+                int returnVal = chooser.showOpenDialog(null); // stores if user clicks open/cancel
                 if (returnVal == JFileChooser.APPROVE_OPTION) {// if user presses open
                     File userFile = chooser.getSelectedFile(); // gets the file selected by user
                     if (chooser.getSelectedFile().isFile()) { // if the file exists
@@ -203,20 +181,51 @@ public class DroneInterface extends Component {
                         ySize = Integer.parseInt(sizeFinder[1]);
                         // boolean empty = f.length() == 0;
 
-                        while (br.readLine() != null) {
+                       // while (br.readLine() != null) {
                             contents = br.readLine();
                             String[] coordinates = contents.split(" ");
                             int x = Integer.parseInt(coordinates[0]);
                             int y = Integer.parseInt(coordinates[1]);
                             int direction = Integer.parseInt(coordinates[2]);
                             myArena.droneList.add(new Drone(x, y, Direction.values()[direction]));
-                        }
+                    //    }
                         br.close();
                     }
                 }
-        }
+            }
 
-    }
+
+
+            void saveFile () throws IOException {
+                JFileChooser chooser = new JFileChooser("C:\\Users\\jason\\UoR\\Y2\\Java Term1\\DroneSimulationProject");//finds the directory of system
+                chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+                int returnVal = chooser.showOpenDialog(null); //stores user input when they click open or cancel
+                if (returnVal == JFileChooser.APPROVE_OPTION) { //if the user presses open
+                    File userFile = chooser.getSelectedFile();//gathers the selected file
+                    System.out.println("Arena saved!\n" + "File Name: " + userFile.getName() + "\nDirectory: "
+                            + ((File) userFile).getAbsolutePath()); //saves the file in chosen directory
+                    //Code for Saving
+                    FileWriter fileWriter = new FileWriter(userFile); //creates a new file
+                    BufferedWriter writer = new BufferedWriter(fileWriter); //adds file to the buffer
+                    //Saves the arena dimensions first
+                    writer.write(Integer.toString(myArena.getX()));
+                    writer.write(" ");
+                    writer.write(Integer.toString(myArena.getY()));
+                    writer.newLine();
+                    //Saves the drones in the arena one line at a time
+                    for (Drone d : myArena.droneList) {
+                        writer.write(Integer.toString(d.getPosY()));
+                        writer.write(" ");
+                        writer.write(Integer.toString(d.getPosY()));
+                        writer.write(" ");
+                        writer.write(Integer.toString(d.getDirect().ordinal()));
+                        writer.newLine();
+                    }
+                    writer.close();
+                }
+            }
+
+
 
     // the following method allows the implementation of a display to be created via the use of variables collected from DroneArena
     void doDisplay() {
@@ -233,3 +242,5 @@ public class DroneInterface extends Component {
         System.out.println("___________________________________________");
     }
 }
+
+
