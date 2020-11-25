@@ -166,11 +166,12 @@ public class DroneInterface {
         // f = new File("C:\\Users\\jason\\UoR\\Y2\\Java Term1\\DroneSimulationProject");
         chooser.setDialogTitle("Load arena from: ");// Window title
         chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);// What files are shown
-        String contents = " ";
+       // String contents = " ";
         int returnVal = chooser.showOpenDialog(null); // stores if user clicks open/cancel
         if (returnVal == JFileChooser.APPROVE_OPTION) {// if user presses open
-            File userFile = chooser.getSelectedFile(); // gets the file selected by user
+            File userFile = chooser.getSelectedFile(); // gets the file selected by use
             if (chooser.getSelectedFile().isFile()) { // if the file exists
+                try{
                 System.out.println("Arena Loaded!\n" + "File Name: " + userFile.getName() + "\nDirectory: "  + userFile.getAbsolutePath());// prints file chosen and directory
 
                 // Clear the current drone list
@@ -178,31 +179,32 @@ public class DroneInterface {
                     myArena.droneList.clear();
                 }
 
-                FileReader fr = new FileReader(userFile);
-                BufferedReader br = new BufferedReader(fr);
+
                 Scanner fileReader = new Scanner(userFile);
-                contents = br.readLine();
-                String[] sizeFinder = contents.split(",");
-                int xSize = Integer.parseInt(sizeFinder[0]);
-                int ySize = Integer.parseInt(sizeFinder[1]);
+                int xSize = fileReader.nextInt();
+                int ySize = fileReader.nextInt();
                 myArena = new DroneArena(xSize, ySize); // creates a new arena with the gathered dimensions
 
-
-                // boolean empty = f.length() == 0;
-
-                    while (fileReader.hasNextLine()) { // while not in the end of the file
-                    contents = br.readLine();
-                    String[] numbers = contents.split(",");
-                    int x = Integer.parseInt(numbers[0]); // First integer is drone X coordinate
-                    int y = Integer.parseInt(numbers[1]); // Second integer is drone Y coordinate
-                    int ordinal = Integer.parseInt(numbers[2]); // Third integer is drone facing Direction
-                    // creates drone and adds it do list
-                    myArena.droneList.add(new Drone(x, y, Direction.values()[ordinal]));
-
+                    while (fileReader.hasNextInt()) { // while not in the end of the file
+                    //contents = br.readLine();
+                        int a = fileReader.nextInt();
+                        int b = fileReader.nextInt();
+                        int direct = fileReader.nextInt();
+//                    String[] numbers = contents.split(",");
+//                    int x = Integer.parseInt(numbers[0]); // First integer is drone X coordinate
+//                    int y = Integer.parseInt(numbers[1]); // Second integer is drone Y coordinate
+//                    int ordinal = Integer.parseInt(numbers[2]); // Third integer is drone facing Direction
+//                    // creates drone and adds it do list
+                        myArena.droneList.add(new Drone(a, b, Direction.values()[direct]));
                     }
-                br.close();
+                fileReader.close();
 
-            }
+            }catch(FileNotFoundException x){
+                    System.out.println("Get fucked");
+                    x.printStackTrace();
+                }
+
+                }
         }
     }
 
@@ -222,15 +224,15 @@ public class DroneInterface {
             BufferedWriter writer = new BufferedWriter(fileWriter); //adds file to the buffer
             //Saves the arena dimensions first
             writer.write(Integer.toString(myArena.getX()));
-            writer.write(",");
+            writer.write(" ");
             writer.write(Integer.toString(myArena.getY()));
             writer.newLine();
             //Saves the drones in the arena one line at a time
             for (Drone d : myArena.droneList) {
                 writer.write(Integer.toString(d.getPosY()));
-                writer.write(",");
+                writer.write(" ");
                 writer.write(Integer.toString(d.getPosY()));
-                writer.write(",");
+                writer.write(" ");
                 writer.write(Integer.toString(d.getDirect().ordinal()));
                 writer.newLine();
             }
