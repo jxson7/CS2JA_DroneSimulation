@@ -46,7 +46,8 @@ public class DroneInterface {
             }
 
             // provides the user with all the appropriate options
-            System.out.println("(A) to add a drone\n" +
+            System.out.println(
+                    "(A) to add a drone\n" +
                     "(D) to view all drones visually\n" +
                     "(E) to view all drones and the relevant information\n" +
                     "(I) to view your existing arena size\n" +
@@ -180,17 +181,12 @@ public class DroneInterface {
                 int xSize = fileReader.nextInt();
                 int ySize = fileReader.nextInt();
                 myArena = new DroneArena(xSize, ySize); // creates a new arena with the gathered dimensions
-
                     while (fileReader.hasNextInt()) { // while not in the end of the file
                     //contents = br.readLine();
                         int a = fileReader.nextInt();
                         int b = fileReader.nextInt();
                         int direct = fileReader.nextInt();
-//                    String[] numbers = contents.split(",");
-//                    int x = Integer.parseInt(numbers[0]); // First integer is drone X coordinate
-//                    int y = Integer.parseInt(numbers[1]); // Second integer is drone Y coordinate
-//                    int ordinal = Integer.parseInt(numbers[2]); // Third integer is drone facing Direction
-//                    // creates drone and adds it do list
+                    // creates drone and adds it do list
                         myArena.droneList.add(new Drone(a, b, Direction.values()[direct]));
                     }
                 fileReader.close();

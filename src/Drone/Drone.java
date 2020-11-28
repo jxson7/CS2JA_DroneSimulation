@@ -20,9 +20,8 @@ public class Drone {
     posY = y;
     }
 
-    public int getPosY(){
-        return posY;
-    }
+    public int getPosX(){ return posX;}
+    public int getPosY(){return posY; }
     public Direction getDirect() { return direct; }
 
 
