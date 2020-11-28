@@ -58,7 +58,6 @@ public class DroneInterface {
                     "(S) to save a file\n");
             System.out.print("Your selection: ");
 
-
             options = input.next().charAt(0);
             input.nextLine();
             // allows a division to remove any form of clustered code :)
@@ -85,10 +84,8 @@ public class DroneInterface {
                         e.printStackTrace();
                     }
                 }
-                case 'x' -> options = 'X';
-                // when X detected program ends
             }
-        } while (options != 'X');                        // test if end
+        } while (options != 'Q');                        // test if end
         input.close();                                    // close scanner
     }
 
@@ -179,7 +176,6 @@ public class DroneInterface {
                     myArena.droneList.clear();
                 }
 
-
                 Scanner fileReader = new Scanner(userFile);
                 int xSize = fileReader.nextInt();
                 int ySize = fileReader.nextInt();
@@ -215,7 +211,7 @@ public class DroneInterface {
         String curDir = System.getProperty("user.dir");
         JFileChooser chooser = new JFileChooser(curDir);
         chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        int returnVal = chooser.showOpenDialog(null); //stores user input when they click open or cancel
+        int returnVal = chooser.showSaveDialog(null); //stores user input when they click open or cancel
         if (returnVal == JFileChooser.APPROVE_OPTION) { //if the user presses open
             File userFile = chooser.getSelectedFile();//gathers the selected file
             System.out.println("Arena saved!\n" + "File Name: " + userFile.getName() + "\nDirectory: " + ((File) userFile).getAbsolutePath()); //saves the file in chosen directory

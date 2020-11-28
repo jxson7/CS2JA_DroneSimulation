@@ -20,21 +20,10 @@ public class Drone {
     posY = y;
     }
 
-    // introduction of setters and getters for future purposes of referencing if required.
-    public void setPosX(int posX){
-        this.posX = posX;
-    }
-    public void setPosY(int posY){
-        this.posY = posY;
-    }
-    public int getPosX(){
-        return posX;
-    }
     public int getPosY(){
         return posY;
     }
     public Direction getDirect() { return direct; }
-    public void setDirect(Direction direct) { this.direct = direct; }
 
 
     /**
@@ -92,13 +81,9 @@ public class Drone {
     /**
      * @return string stating location of both x and y co ordinates.
      */
-
     // process of toString to print coordinates and the direction of the said drone
     public String toString() {
         return "Drone is at: " + posX + "," + posY + "." + "in the direction of: " + direct.toString() + ".";
     }
-
-
-
 
 }

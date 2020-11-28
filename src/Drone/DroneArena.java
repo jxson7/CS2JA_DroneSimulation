@@ -60,7 +60,7 @@ public class DroneArena {
 
     // verifies if movement can be made to the said position
     public boolean canMoveHere(int x, int y) {
-    if (x < 0 || x >= xDimensions || y < 0 || y >= yDimensions){
+    if (x <= 0 || x >= xDimensions || y <= 0 || y >= yDimensions){
         return false;
     }else return getDroneAt(x, y) == null;
     }
@@ -69,7 +69,6 @@ public class DroneArena {
         public void addDrone() {
             Random random;
             int xco, yco;
-
             random = new Random();
             if (droneList.size() < xDimensions * yDimensions){
                 do{
@@ -90,6 +89,8 @@ public class DroneArena {
         }
         return s.toString();
     }
+
+
 
 
 
