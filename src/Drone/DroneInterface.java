@@ -192,7 +192,7 @@ public class DroneInterface {
                 fileReader.close();
 
             }catch(FileNotFoundException x){
-                    System.out.println("Get fucked");
+                    System.out.println("File not loaded");
                     x.printStackTrace();
                 }
 
