@@ -4,7 +4,7 @@
   drone. This includes declarations such as posX, posY, with setters and getters.
  */
 
-package Drone;
+package DroneGUI;
 
 // initial setup of the Drone setup
 public class Drone {
@@ -15,9 +15,9 @@ public class Drone {
 
 
     Drone(int x, int y, Direction d){
-    direct  = d;
-    posX = x;
-    posY = y;
+        direct  = d;
+        posX = x;
+        posY = y;
     }
 
     public int getPosX(){ return posX;}

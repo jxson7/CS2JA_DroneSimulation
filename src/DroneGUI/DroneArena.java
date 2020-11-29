@@ -1,4 +1,4 @@
-package Drone;
+package DroneGUI;
 import java.util.*;
 
 /**
@@ -21,7 +21,7 @@ public class DroneArena {
     public void setxDimensions(){ this.xDimensions = xDimensions; }
     public void setyDimensions(){ this.yDimensions = yDimensions; }
     public int getX(){
-      return xDimensions;
+        return xDimensions;
     }
     public int getY(){
         return yDimensions;
@@ -60,27 +60,27 @@ public class DroneArena {
 
     // verifies if movement can be made to the said position
     public boolean canMoveHere(int x, int y) {
-    if (x <= 0 || x >= xDimensions || y <= 0 || y >= yDimensions){
-        return false;
-    }else return getDroneAt(x, y) == null;
+        if (x <= 0 || x >= xDimensions || y <= 0 || y >= yDimensions){
+            return false;
+        }else return getDroneAt(x, y) == null;
     }
 
     // focuses on adding a drone by generating a random value and then adding it into the array
-        public void addDrone() {
-            Random random;
-            int xco, yco;
-            random = new Random();
-            if (droneList.size() < xDimensions * yDimensions){
-                do{
-                     xco = random.nextInt((xDimensions));
-                     yco = random.nextInt((yDimensions));
-                }while(getDroneAt(xco, yco) != null);
-                droneTest = new Drone(xco, yco, Direction.randomDir());
-                droneList.add(droneTest);
-            }
+    public void addDrone() {
+        Random random;
+        int xco, yco;
+        random = new Random();
+        if (droneList.size() < xDimensions * yDimensions){
+            do{
+                xco = random.nextInt((xDimensions));
+                yco = random.nextInt((yDimensions));
+            }while(getDroneAt(xco, yco) != null);
+            droneTest = new Drone(xco, yco, Direction.randomDir());
+            droneList.add(droneTest);
         }
+    }
 
-        // focuses on printing the arena size and all drones attached to the array
+    // focuses on printing the arena size and all drones attached to the array
     public String toString() {
         StringBuilder s = new StringBuilder("The arena size is " + xDimensions + " x " + yDimensions + " and: " + "\n");
 
