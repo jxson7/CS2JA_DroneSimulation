@@ -1,5 +1,8 @@
 package DroneGUI;
 import java.util.*;
+import javafx.scene.image.Image;
+
+
 
 /**
  * the drone arena focuses on viewing where the drone is, the size of the arena, and adding drones to the aforementioned
@@ -27,42 +30,14 @@ public class DroneArena {
         return yDimensions;
     }
 
-    /**
-     * search arraylist of droneList to see if there is a drone at x,y
-     * @param x: checks value at x
-     * @param y: checks value at y
-     * @return null if no Drone there, otherwise return drone
-     */
-    public Drone getDroneAt(int x, int y) {
-        Drone a = null;
-        for (Drone d : droneList) {// for the list of drones in the array
-            if (d.isHere(x, y)) {// check if isHere is true(if sx and sy exist)
-                return a = d;// then return d meaning position id clear put drone in array
-            } else {
-                return a;// otherwise null
-            }
-        }
-        return a;
-    }
 
-    // shows all the drones within the array
-    public void showDrones(ConsoleCanvas c) {
-        for (Drone d : droneList) {
-            d.displayDrone(c);
-        }
-    }
-    // moves all drones attached to the array
-    public void moveAllDrones() {
-        for (Drone d : droneList) {
-            d.tryToMove(this);
-        }
-    }
 
-    // verifies if movement can be made to the said position
-    public boolean canMoveHere(int x, int y) {
-        if (x <= 0 || x >= xDimensions || y <= 0 || y >= yDimensions){
-            return false;
-        }else return getDroneAt(x, y) == null;
+
+    public void drawArena(myCanvas myCanvas){
+        for (Drone d: droneList){
+            d.displayDrone(myCanvas);
+
+        }
     }
 
     // focuses on adding a drone by generating a random value and then adding it into the array
@@ -71,12 +46,11 @@ public class DroneArena {
         int xco, yco;
         random = new Random();
         if (droneList.size() < xDimensions * yDimensions){
-            do{
                 xco = random.nextInt((xDimensions));
                 yco = random.nextInt((yDimensions));
-            }while(getDroneAt(xco, yco) != null);
-            droneTest = new Drone(xco, yco, Direction.randomDir());
-            droneList.add(droneTest);
+                droneTest = new Drone(xco, yco, Direction.randomDir());
+                droneList.add(droneTest);
+
         }
     }
 

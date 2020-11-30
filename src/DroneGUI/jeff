@@ -1,0 +1,123 @@
+package DroneGUI;
+
+import java.util.Random;
+
+
+import javafx.animation.AnimationTimer;
+import javafx.application.Application;
+import javafx.event.*;
+
+import javafx.fxml.FXMLLoader;
+import javafx.scene.*;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.stage.Stage;
+
+
+import javafx.scene.canvas.Canvas;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+
+
+public class GUI extends Application {
+    int xSize = 400;
+    int ySize = 400;
+    myCanvas myCanvas;
+    DroneArena da;
+
+    MenuBar setMenu() {
+        MenuBar menuBar = new MenuBar();		// create menu
+
+        Menu mHelp = new Menu("Help");			// have entry for help
+        // then add sub menus for About and Help
+        MenuItem help = new MenuItem("Help");
+
+        mHelp.getItems().addAll(help);
+        // add the item and then the action to perform
+        MenuItem mAbout = new MenuItem("About");
+
+
+
+        mHelp.getItems().addAll(mAbout); 	// add submenus to Help
+
+        // now add File menu, which here only has Exit
+        Menu mFile = new Menu("File");
+        MenuItem mExit = new MenuItem("Exit");
+        mExit.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent t) {
+                System.exit(0);						// quit program
+            }
+        });
+        mFile.getItems().addAll(mExit);
+
+        menuBar.getMenus().addAll(mFile, mHelp);	// menu has File and Help
+
+        return menuBar;					// return the menu, so can be added
+    }
+
+
+//    @Override
+//    public void start(Stage primaryStage) throws Exception{
+//        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+//        primaryStage.setTitle("Hello World");
+//        primaryStage.setScene(new Scene(root, 300, 275));
+//        primaryStage.show();
+//    }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        stage.setTitle("26017434 Drone Simulation: GUI Edition");
+        //Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Group root = new Group();
+        // stage.setScene(new Scene(root, 300, 275));
+
+        BorderPane border = new BorderPane();
+        //border.setTop(setMainMenu());
+        Canvas canvas = new Canvas(xSize, ySize);
+
+        root.getChildren().add(canvas);
+        myCanvas = new myCanvas(canvas.getGraphicsContext2D(), xSize, ySize);
+        da = new DroneArena(myCanvas.xCanvasSize, myCanvas.yCanvasSize);
+//        //da.addDrone();
+//        border.setCenter(root);							// put group in centre pane
+
+
+        //stage.setScene(new Scene(xSize, ySize));
+        Scene scene = new Scene(border, xSize * 1.2, ySize * 1.2);
+
+        new AnimationTimer()            // create timer
+        {
+            public void handle(long currentNanoTime) {
+                // define handle for what do at this time
+
+            }
+
+        }.start();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+
+//
+//        da.addDrone();
+//        System.out.println("Drone has been added");
+//        da.drawArena(myCanvas);
+
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+
+
+//    private Node setMainMenu() {
+//
+//    }
+
+

@@ -13,8 +13,8 @@ import javafx.scene.text.TextAlignment;
  *  The following file has been copied and inherited from R J Mitchell from the University of Reading
  */
 public class myCanvas {
-    int xCanvasSize = 512;				// constants for relevant sizes
-    int yCanvasSize = 512;
+    int xCanvasSize = 400;				// constants for relevant sizes
+    int yCanvasSize = 400;
     GraphicsContext gc;
 
     /**
