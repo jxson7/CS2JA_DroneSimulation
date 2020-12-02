@@ -21,7 +21,6 @@ public class myCanvas {
     /**
      * onstructor sets up relevant Graphics context and size of canvas
      * @param g
-     * @param cs
      */
     public myCanvas(GraphicsContext g, int xcs, int ycs) {
         gc = g;
