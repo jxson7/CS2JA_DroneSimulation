@@ -13,7 +13,7 @@ public class Drone {
     private int posX;
     private int posY;
     private Direction direct;
-    Image test = new Image(getClass().getResourceAsStream("drone.png"));
+    Image droneImage = new Image(getClass().getResourceAsStream("circle.png"));
 
 
 
@@ -35,7 +35,7 @@ public class Drone {
      * @param c: sends the canvas data to the console canvas as a method to allow a display.
      */
     public void displayDrone(myCanvas c) {
-        c.drawIt(test,posX, posY, 40);
+        c.drawImage(droneImage,posX, posY, 40);
         // << call the showIt method in c to put a D where the drone is
     }
 

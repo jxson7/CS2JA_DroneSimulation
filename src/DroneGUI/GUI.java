@@ -10,7 +10,6 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -24,13 +23,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import javax.swing.*;
+
+import static java.lang.System.exit;
+
 
 public class GUI extends Application {
-    private VBox rtPane;						// pane in which info on system listed
-    private Random rgen = new Random();			// random number generator
-    private myCanvas mc;						// canvas into which system drawn
-    DroneArena ourSystem;			// simple model of solar system
-    private int canvasSize = 512;				// size of canvas
+    private VBox leftPane;						// pane in which info on system listed
+    private myCanvas canvasPane;						// canvas into which system drawn
+    DroneArena mainArena;			// simple model of solar system
+    private int canvasSize = 550;				// size of canvas
     boolean on = false;
     /**
      * Function to show a message,
@@ -48,8 +50,8 @@ public class GUI extends Application {
     /**
      * function to show in a box ABout the programme
      */
-    private void showAbout() {
-        showMessage("About", "Marks BorderPane Demonstrator");
+    private void aboutPanel() {
+        showMessage("About", "Welcome to Jason Dookarun's Drone Simulation. In this program, you will be able to add drones and view them visually. :) ");
     }
 
     /**
@@ -73,22 +75,12 @@ public class GUI extends Application {
         mAbout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                showAbout();				// show the about message
+                aboutPanel();				// show the about message
             }
         });
         mHelp.getItems().addAll(mAbout); 	// add submenus to Help
 
-        // now add File menu, which here only has Exit
-        Menu mFile = new Menu("File");
-        MenuItem mExit = new MenuItem("Exit");
-        mExit.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent t) {
-                System.exit(0);						// quit program
-            }
-        });
-        mFile.getItems().addAll(mExit);
 
-        menuBar.getMenus().addAll(mFile, mHelp);	// menu has File and Help
 
         return menuBar;					// return the menu, so can be added
     }
@@ -96,21 +88,21 @@ public class GUI extends Application {
     /**
      * show where Earth is, in pane on right
      */
-    public void drawStatus() {
-        // clear rtPane
-        rtPane = new VBox();
-        // get label which has information on system - use ourSystem.toString()
-        Label label = new Label(ourSystem.toString());
+    public void statusPanel() {
+        // clear leftPane
+        leftPane = new VBox();
+        // get label which has information on system - use mainArena.toString()
+        Label label = new Label(mainArena.toString());
 
-        // add label to rtPane
-        rtPane.getChildren().add(label);
+        // add label to leftPane
+        leftPane.getChildren().add(label);
     }
     public void updateStatus() {
 
-        rtPane.getChildren().clear();					// clear rtpane
+        leftPane.getChildren().clear();					// clear leftPane
         // now create label
-        Label l = new Label(ourSystem.toString());
-        rtPane.getChildren().add(l);				// add label to pane
+        Label l = new Label(mainArena.toString());
+        leftPane.getChildren().add(l);				// add label to pane
 
     }
     /**
@@ -126,7 +118,7 @@ public class GUI extends Application {
 
 
 
-                        //   ourSystem.setSystem(mc, e.getX(), e.getY());
+                        //   mainArena.setSystem(mc, e.getX(), e.getY());
                         //updateSystem();
                         //  drawSystem();
 
@@ -145,46 +137,37 @@ public class GUI extends Application {
         Random random = new Random();
         double degreeAngle = random.nextDouble()*360;//generate random number between 1 and 360
         double radAngle = degreeAngle*Math.PI/180; //convert to radians
-        //	ourSystem.updateSystem(radAngle);//update
-        ourSystem.drawArena(mc);//draw
+        //	mainArena.updateSystem(radAngle);//update
+        mainArena.drawArena(canvasPane);//draw
 
 
-        Button btnStart = new Button("Add Drone");
+        Button btnStart = new Button("add Drone");
         btnStart.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
 
                 on = true;
-                aDD(on);
+                addNewDrone(on);
             }
         });
-        Button btnMove = new Button("Move");
-        btnMove.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                on = false;
-                System.out.println(on);
-                aDD(on);
 
-                System.out.println("works");
-
-            }
-        });
         Button btnStop = new Button("Stop");
         btnStop.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                on = false;
-                System.out.println(on);
-                aDD(on);
+                int confirmed = JOptionPane.showConfirmDialog(null,
+                        "Are you sure you want to exit the program?", "Exit Program Message Box",
+                        JOptionPane.YES_NO_OPTION);
 
-                System.out.println("works");
+                if (confirmed == JOptionPane.YES_OPTION) {
+                    exit(0);
+                }
 
             }
         });
-        return new HBox( btnStart, btnMove, btnStop);
+        return new HBox( btnStart, btnStop);
     }
-    public void aDD(Boolean run) {
+    public void addNewDrone(Boolean run) {
         final long startNanoTime = System.nanoTime();
         //if(run == true) {
 
@@ -192,10 +175,10 @@ public class GUI extends Application {
         // define handle for what do at this time
         // calculate time
         // 		System.out.println("drone added");
-        ourSystem.addDrone();
+        mainArena.addDrone();
         updateStatus();
-        ourSystem.drawArena(mc);
-        System.out.println(ourSystem.toString());
+        mainArena.drawArena(canvasPane);
+        System.out.println(mainArena.toString());
 
 
         //}
@@ -206,62 +189,50 @@ public class GUI extends Application {
 //	    		public void handle(long currentNanoTime) {
 //	    				// define handle for what do at this time
 //	    			double t = (currentNanoTime - startNanoTime) / 1000000000.0; 			// calculate time
-//	    	//		ourSystem.updateSystem(t);			// use time as an angle for calculating position of earth
+//	    	//		mainArena.updateSystem(t);			// use time as an angle for calculating position of earth
 //	    			//System.out.println(t);
-//	    	//		ourSystem.drawSystem(mc);
+//	    	//		mainArena.drawSystem(mc);
 //	    		}
 //	    	}.stop();
 //    	}
     }
 
     @Override
-    public void start(Stage stagePrimary) throws Exception {
-        stagePrimary.setTitle("27003132 Drone Simulator");
+    public void start(Stage mainStage) throws Exception {
+        mainStage.setTitle("26017434: Drone Simulator");
 
-        BorderPane bp = new BorderPane();			// create border pane
+        BorderPane borderPane = new BorderPane();			// create border pane
 
-        bp.setTop(setMenu());						// create menu, add to top
+        borderPane.setTop(setMenu());						// create menu, add to top
 
         Group root = new Group();					// create group
         Canvas canvas = new Canvas( canvasSize, canvasSize );
         // and canvas to draw in
         root.getChildren().add( canvas );			// and add canvas to group
-        mc = new myCanvas(canvas.getGraphicsContext2D(), canvasSize, canvasSize);
+        canvasPane = new myCanvas(canvas.getGraphicsContext2D(), canvasSize, canvasSize);
         // create MyCanvas passing context on canvas onto which images put
-        ourSystem = new DroneArena(mc.xCanvasSize, mc.yCanvasSize);				// create object for sun, planets, etc
-        ourSystem.addDrone();
+        mainArena = new DroneArena(canvasPane.xCanvasSize, canvasPane.yCanvasSize);				// create object for sun, planets, etc
+        //mainArena.addDrone();
         setMouseEvents(canvas);						// set mouse handler
-        bp.setCenter(root);							// put group in centre pane
+        borderPane.setCenter(root);							// put group in centre pane
 
-        rtPane = new VBox();		// set vBox for listing data
+        leftPane = new VBox();		// set vBox for listing data
 
-        drawStatus();
-        bp.setRight(rtPane);						// put in right pane
+        statusPanel();
+        borderPane.setRight(leftPane);						// put in right pane
 
-        bp.setBottom(setButtons());					/// add button to bottom
+        borderPane.setBottom(setButtons());					/// add button to bottom
 
-        Scene scene = new Scene(bp, canvasSize*1.5, canvasSize*1.2);
+        Scene scene = new Scene(borderPane, canvasSize*1.2, canvasSize*1.2);
         // create scene so bigger than canvas,
 
-        if(on == true) {
-            new AnimationTimer()			// create timer
-            {
-                public void handle(long currentNanoTime) {
-                    // define handle for what do at this time
-                    ourSystem.addDrone();	// calculate time
-                    //ourSystem.updateSystem(t);			// use time as an angle for calculating position of earth
-                    System.out.println("drone added");
-                    ourSystem.drawArena(mc);
-                }
-            }.start();
-        }
-        stagePrimary.setScene(scene);
-        stagePrimary.show();
+        mainStage.setScene(scene);
+        mainStage.show();
 
     }
 
     public static void main(String[] args) {
-        Application.launch(args);
+        launch(args);
     }
 
 }
