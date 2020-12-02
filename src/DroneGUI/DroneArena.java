@@ -30,9 +30,6 @@ public class DroneArena {
         return yDimensions;
     }
 
-
-
-
     public void drawArena(myCanvas myCanvas){
         for (Drone d: droneList){
             d.displayDrone(myCanvas);
@@ -63,10 +60,5 @@ public class DroneArena {
         }
         return s.toString();
     }
-
-
-
-
-
 
 }

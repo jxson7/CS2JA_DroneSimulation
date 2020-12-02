@@ -10,14 +10,10 @@ import javafx.scene.image.Image;
 
 // initial setup of the Drone setup
 public class Drone {
-    private int posX;
-    private int posY;
-    private Direction direct;
+    private final int posX;
+    private final int posY;
+    private final Direction direct;
     Image droneImage = new Image(getClass().getResourceAsStream("circle.png"));
-
-
-
-
 
     Drone(int x, int y, Direction d){
         direct  = d;
@@ -39,23 +35,12 @@ public class Drone {
         // << call the showIt method in c to put a D where the drone is
     }
 
-
-
-
     /**
      * @return string stating location of both x and y co ordinates.
      */
     // process of toString to print coordinates and the direction of the said drone
     public String toString() {
         return "Drone is at: " + posX + "," + posY + "." + "in the direction of: " + direct.toString() + ".";
-    }
-
-    public static void main(String[] args) {
-        Drone d = new Drone(5, 3, Direction.north); // create drone
-        Drone e = new Drone(7,2, Direction.south);
-        System.out.println(d.toString());// print where is
-        System.out.println(e.toString());
-
     }
 
 
