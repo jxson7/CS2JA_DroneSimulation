@@ -53,7 +53,7 @@ public class DroneArena {
 
     // focuses on printing the arena size and all drones attached to the array
     public String toString() {
-        StringBuilder s = new StringBuilder("The arena size is " + xDimensions + " x " + yDimensions + " and: " + "\n");
+        StringBuilder s = new StringBuilder("The arena size is " + xDimensions + " x " + yDimensions + " and consists of the following drones: " + "\n");
 
         for (Drone d : droneList) {// for all the drones inside the arraylist have them in the string
             s.append(d.toString()).append("\n");

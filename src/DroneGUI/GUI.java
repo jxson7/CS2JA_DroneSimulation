@@ -36,43 +36,11 @@ public class GUI extends Application {
 
         alert.showAndWait();
     }
-    /**
-     * function to show in a box ABout the programme
-     */
-    private void aboutPanel() {
-        showMessage("About", "Welcome to Jason Dookarun's Drone Simulation. In this program, you will be able to add drones and view them visually. :) ");
-    }
-
-    /**
-     * Function to set up the menu
-     */
-    MenuBar setMenu() {
-        MenuBar menuBar = new MenuBar();		// create menu
-
-        Menu mHelp = new Menu("Help");			// have entry for help
-        // then add sub menus for About and Help
-        MenuItem help = new MenuItem("Help");
-        help.setOnAction(actionEvent -> showMessage("Help", "Watch the drones move"));
-        mHelp.getItems().addAll(help);
-        // add the item and then the action to perform
-        MenuItem mAbout = new MenuItem("About");
-        mAbout.setOnAction(actionEvent -> {
-            aboutPanel();				// show the about message
-        });
-        mHelp.getItems().addAll(mAbout); 	// add submenus to Help
 
 
-
-        return menuBar;					// return the menu, so can be added
-    }
-
-    /**
-     * show where Earth is, in pane on right
-     */
     public void statusPanel() {
         // clear leftPane
         leftPane = new VBox();
-        // get label which has information on system - use mainArena.toString()
         Label label = new Label(mainArena.toString());
 
         // add label to leftPane
@@ -94,12 +62,7 @@ public class GUI extends Application {
     }
 
     private HBox setButtons() {
-        // create button
 
-        // now add handler
-        Random random = new Random();
-        double degreeAngle = random.nextDouble()*360;//generate random number between 1 and 360
-        double radAngle = degreeAngle*Math.PI/180; //convert to radians
         //	mainArena.updateSystem(radAngle);//update
         mainArena.drawArena(canvasPane);//draw
 
@@ -123,13 +86,6 @@ public class GUI extends Application {
         return new HBox( btnStart, btnStop);
     }
     public void addNewDrone() {
-        System.nanoTime();
-        //if(run == true) {
-
-
-        // define handle for what do at this time
-        // calculate time
-        // 		System.out.println("drone added");
         mainArena.addDrone();
         updateStatus();
         mainArena.drawArena(canvasPane);
@@ -142,18 +98,15 @@ public class GUI extends Application {
 
         BorderPane borderPane = new BorderPane();			// create border pane
 
-        borderPane.setTop(setMenu());						// create menu, add to top
+       // borderPane.setTop(setMenu());						// create menu, add to top
 
         Group root = new Group();					// create group
         // size of canvas
-        int canvasSize = 550;
+        int canvasSize = 512;
         Canvas canvas = new Canvas(canvasSize, canvasSize);
-        // and canvas to draw in
-        root.getChildren().add( canvas );			// and add canvas to group
+        root.getChildren().add(canvas);			// and add canvas to group
         canvasPane = new myCanvas(canvas.getGraphicsContext2D(), canvasSize, canvasSize);
-        // create MyCanvas passing context on canvas onto which images put
         mainArena = new DroneArena(canvasPane.xCanvasSize, canvasPane.yCanvasSize);				// create object for sun, planets, etc
-        //mainArena.addDrone();
         setMouseEvents(canvas);						// set mouse handler
         borderPane.setCenter(root);							// put group in centre pane
 
@@ -169,6 +122,8 @@ public class GUI extends Application {
 
         mainStage.setScene(scene);
         mainStage.show();
+        mainStage.setFullScreen(true);
+
     }
 
     public static void main(String[] args) {
