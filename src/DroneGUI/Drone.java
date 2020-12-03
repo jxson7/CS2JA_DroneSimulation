@@ -1,17 +1,13 @@
-/*
-  author: Jason Jay Dookarun
-  Practical 1 Notes: The following creation involves developing a basic method, with appropriate declarations to create a
-  drone. This includes declarations such as posX, posY, with setters and getters.
- */
-
 package DroneGUI;
-
 import javafx.scene.image.Image;
 
-// initial setup of the Drone setup
+/**
+ @author Jason Jay Dookarun
+ The following creation involves developing a basic method, with appropriate declarations to create a
+ drone. This includes declarations such as posX, posY, with setters and getters.
+ **/
 public class Drone {
-    private final int posX;
-    private final int posY;
+    private int posX,posY;
     private final Direction direct;
     Image droneImage = new Image(getClass().getResourceAsStream("circle.png"));
 
@@ -21,6 +17,12 @@ public class Drone {
         posY = y;
     }
 
+
+    /**
+     * setters and getters are formed as part of a process of retrieval, for future classes that attempt at access this data.
+     */
+    public void setPosX(){this.posX = posX;}
+    public void setPosY(){this.posY = posY;}
     public int getPosX(){ return posX;}
     public int getPosY(){return posY; }
     public Direction getDirect() { return direct; }
@@ -28,17 +30,15 @@ public class Drone {
 
     /**
      *
-     * @param c: sends the canvas data to the console canvas as a method to allow a display.
+     * @param x: uses myCanvas as a parameter to draw the element upon the canvas, namely, drone.
      */
-    public void displayDrone(myCanvas c) {
-        c.drawImage(droneImage,posX, posY, 40);
-        // << call the showIt method in c to put a D where the drone is
+    public void displayDrone(MyCanvas x) {
+        x.drawImage(droneImage,posX, posY, 40);
     }
 
     /**
-     * @return string stating location of both x and y co ordinates.
+     * @return string stating location of both x and y coordinates of the drone, including direction, generated from Direction.java.
      */
-    // process of toString to print coordinates and the direction of the said drone
     public String toString() {
         return "Drone is at: " + posX + "," + posY + "." + "in the direction of: " + direct.toString() + ".";
     }
