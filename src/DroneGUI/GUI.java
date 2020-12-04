@@ -1,6 +1,7 @@
 package DroneGUI;
 
 import javafx.application.Application;
+
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -10,6 +11,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javax.swing.*;
+
+
 import static java.lang.System.exit;
 
 /**
@@ -42,14 +45,17 @@ public class GUI extends Application {
         borderPane.setCenter(groupComponent);
         leftPane = new VBox();
         statusPanel();
-        borderPane.setRight(leftPane);
+        ScrollPane sideBarScroller = new ScrollPane(leftPane);
+        sideBarScroller.setFitToWidth(true);
+
+        borderPane.setRight(sideBarScroller);
+        borderPane.setLeft(leftPane);
         borderPane.setBottom(createButtonPane());
-        Scene scene = new Scene(borderPane, xCanvasSize *1.2, yCanvasSize *1.2);
+        Scene scene = new Scene(borderPane, xCanvasSize *1.7, yCanvasSize *1.2);
         mainStage.setScene(scene);
         mainStage.show();
+
     }
-
-
     /**
      * The following method focuses upon the creation of all additional panes such as the Help support section, followed by
      * File -> Quit
@@ -67,7 +73,7 @@ public class GUI extends Application {
         });
         Menu helpSection = new Menu("Help");
         MenuItem help = new Menu("Help");
-        help.setOnAction(actionEvent -> JOptionPane.showMessageDialog(null,"Press Add: Add Drone, Stop: Stop Program","Help", JOptionPane.INFORMATION_MESSAGE));
+        help.setOnAction(actionEvent -> JOptionPane.showMessageDialog(null,"Add Drone: adds a drone to the canvas, Add Obstacle: Adds an Obstacle to the canvas, Quit: exits the program","Help", JOptionPane.INFORMATION_MESSAGE));
         MenuItem aboutSection = new MenuItem("About");
         aboutSection.setOnAction(actionEvent -> JOptionPane.showMessageDialog(null, "Welcome to the CS2JA: Drone Simulation by Jason Jay Dookarun","About", JOptionPane.INFORMATION_MESSAGE));
         fileSection.getItems().addAll(exit);
@@ -75,7 +81,6 @@ public class GUI extends Application {
         menuBar.getMenus().addAll(fileSection, helpSection);
         return menuBar;
     }
-
 
     /**
      * Focuses on creation the buttons for the user to interact with, i.e. add Drone and Stop System
@@ -88,16 +93,25 @@ public class GUI extends Application {
         addDroneButton.setOnAction(event -> {
             mainArena.addDrone();
             leftPane.getChildren().clear();					// clear leftPane
-            Label newLabel = new Label(mainArena.toString());
-            leftPane.getChildren().add(newLabel);
+            Label droneLabel = new Label(mainArena.toString());
+            leftPane.getChildren().add(droneLabel);
             mainArena.drawArena(canvasPane);
             System.out.println(mainArena.toString());
         });
-        Button stopSystemButton = new Button("Stop System");
+        Button addObstacleButton = new Button("Add Obstacle");
+        addObstacleButton.setOnAction(event -> {
+            mainArena.addObstacle();
+            leftPane.getChildren().clear();					// clear leftPane
+            Label obstacleLabel = new Label(mainArena.toString());
+            leftPane.getChildren().add(obstacleLabel);
+            mainArena.drawObstacle(canvasPane);
+            System.out.println(mainArena.toString());
+        });
+        Button stopSystemButton = new Button("Quit");
         stopSystemButton.setOnAction(event -> {
             int userResponse = JOptionPane.showConfirmDialog(null,"Are you sure you want to quit?", "Quit Drone Simulation", JOptionPane.YES_NO_OPTION);
             if (userResponse == JOptionPane.YES_OPTION) { exit(0); }});
-        return new HBox( addDroneButton, stopSystemButton);
+        return new HBox( addDroneButton,addObstacleButton, stopSystemButton);
     }
 
     /**
