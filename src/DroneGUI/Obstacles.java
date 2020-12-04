@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 public class Obstacles extends Drone{
     Image droneImage = new Image(getClass().getResourceAsStream("obstacle.jpeg"));
 
-    Obstacles(int x, int y, Direction d) {
+    public Obstacles(int x, int y, Direction d) {
         super(x, y, d);
     }
 

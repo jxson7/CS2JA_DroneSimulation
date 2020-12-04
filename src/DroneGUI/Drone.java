@@ -43,4 +43,13 @@ import javafx.scene.image.Image;
     }
 
 
+    /**
+     * The following class will act as a tester class to experiment with how successful this class functions.
+     * @param args
+     */
+    public static void main(String [] args){
+        Drone x = new Drone(5,6,Direction.south);
+        x.toString();
+        System.out.println((x));
+    }
 }

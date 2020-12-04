@@ -53,7 +53,6 @@ public class MyCanvas {
         gc.drawImage(i, x - sz/2, y - sz/2, sz, sz);
     }
 
-
     /**
      * function to convert char c to actual colour used
      * @param c
