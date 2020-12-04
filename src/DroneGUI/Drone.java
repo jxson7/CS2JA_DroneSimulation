@@ -39,7 +39,7 @@ import javafx.scene.image.Image;
      * @return string stating location of both x and y coordinates of the drone, including direction, generated from Direction.java.
      */
     public String toString() {
-        return "Drone is at: " + posX + "," + posY + " ,positioned: " + direct.toString() + ".";
+        return "Drone is at: " + posX + "," + posY + " , positioned: " + direct.toString() + ".";
     }
 
 

@@ -32,7 +32,7 @@ public class Obstacles extends Drone{
      * @return string stating location of both x and y coordinates of the drone, including direction, generated from Direction.java.
      */
     public String toString() {
-        return "Obstacle is at: " + posX + "," + posY + " ,positioned: " + direct.toString() + ".";
+        return "Obstacle is at: " + posX + "," + posY + " , positioned: " + direct.toString() + ".";
     }
 
 }
