@@ -9,7 +9,7 @@ import javafx.scene.image.Image;
     class Drone {
         int posX,posY;
         Direction direct;
-        Image droneImage = new Image(getClass().getResourceAsStream("circle.jpeg"));
+        Image droneImage = new Image(getClass().getResourceAsStream("droneimage.jpg"));
 
     Drone(int x, int y, Direction d){
         direct  = d;
@@ -32,7 +32,18 @@ import javafx.scene.image.Image;
      * @param x: uses myCanvas as a parameter to draw the element upon the canvas, namely, drone.
      */
     public void displayDrone(MyCanvas x) {
-        x.drawImage(droneImage,posX, posY, 40);
+        x.drawImage(droneImage,posX, posY, 20);
+    }
+
+
+    /**
+     * The following method is developed as part of a validation procedure whereby the drone exists in the said positon.
+     * @param xVal validation that the X position matches the value
+     * @param yVal validation that the Y position matches the value
+     * @return confirmation
+     */
+    public boolean isHere(int xVal, int yVal){
+        return posX == xVal && posY == yVal;
     }
 
     /**
@@ -41,7 +52,6 @@ import javafx.scene.image.Image;
     public String toString() {
         return "Drone is at: " + posX + "," + posY + " , positioned: " + direct.toString() + ".";
     }
-
 
     /**
      * The following class will act as a tester class to experiment with how successful this class functions.
@@ -52,4 +62,6 @@ import javafx.scene.image.Image;
         x.toString();
         System.out.println((x));
     }
+
+
 }

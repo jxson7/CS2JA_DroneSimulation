@@ -11,7 +11,10 @@ public class DroneArena {
     ArrayList<Drone> droneList = new ArrayList<>();
     Drone newDrone;
     Obstacles newObstacle;
+    Avoider newAvoider;
     ArrayList<Obstacles> obstaclesList = new ArrayList<>();
+    ArrayList<Avoider> avoiderList = new ArrayList<>();
+
 
     /**
      * The following drone arena takes into consideration 2 components
@@ -47,11 +50,24 @@ public class DroneArena {
     }
 
     /**
-     * @param canvasPane
+     * The following method takes myCanvas as parameter and reviews all the drones available in the list. If obstacle(s) do exist, then the obstacle
+     * are displayed via a displayObstacle function.
+     * @param canvasPane: represents the canvas pane that is drawn upon to illustrate the drones.
      */
     public void drawObstacle(MyCanvas canvasPane) {
         for (Obstacles o: obstaclesList){
-            o.displayObstacle(canvasPane);
+            o.displayObstacles(canvasPane);
+        }
+    }
+
+    /**
+     * The following method takes myCanvas as parameter and reviews all the drones available in the list. If avoider(s) do exist, then the avoiders
+     * are displayed via a displayObstacle function.
+     * @param canvasPane: represents the canvas pane that is drawn upon to illustrate the drones.
+     */
+    public void drawAvoider(MyCanvas canvasPane) {
+        for (Avoider a: avoiderList){
+            a.displayAvoider(canvasPane);
         }
     }
 
@@ -98,20 +114,52 @@ public class DroneArena {
     }
 
     /**
-     * @return the dimensions of the arena and the drones attached to the arrayList (droneList)
+     * A random value is generated. A checker is implemented to verify that the avoider array list does not exceed the limit.
+     * If it exceeds the limit, then the drone cannot be added, else, if it meets the requirements, random coordinates are generated, and the
+     * avoider (newAvoider) is added into the arrayList (avoiderList).
+     *
      */
-    // focuses on printing the arena size and all drones attached to the array
+    // focuses on adding an avoider by generating a random value and then adding it into the array
+    public void addAvoider() {
+        Random random;
+        int xco, yco;
+        random = new Random();
+        if (droneList.size() < xDimensions * yDimensions){
+            xco = random.nextInt((xDimensions));
+            yco = random.nextInt((yDimensions));
+            newAvoider = new Avoider(xco, yco, Direction.randomDir());
+            avoiderList.add(newAvoider);
+        } else{
+            System.out.println("Avoider cannot be added as you have reached maximum capacity. Please try again.");
+        }
+    }
+
+    /**
+     * @return the dimensions of the arena and the drone(s), avoider(s) and obstacle(s) attached to the arrayList (droneList)
+     */
+    // focuses on printing the arena size and all objects attached to the array
     public String toString() {
         StringBuilder s = new StringBuilder("Arena Size: " + xDimensions + " x " + yDimensions + "\n");
         s.append("_______________________" + "\n");
-        s.append("Here is a list of drone and obstacles in the arena:" + "\n");
+        s.append("Here is a list of drone and other objects in the arena:" + "\n");
         for (Drone d : droneList) {// for all the drones inside the arraylist have them in the string
             s.append(d.toString()).append("\n");
         }
         for (Obstacles o: obstaclesList){
             s.append(o.toString()).append("\n");
         }
+        for (Avoider a: avoiderList){
+            s.append(a.toString()).append("\n");
+        }
         return s.toString();
+    }
+
+
+    /**
+     * @return a print message to the user, knowing that the automated process has been stopped based on user command
+     */
+    public String stopProcess(){
+       return "Process has been stopped" + "\n";
     }
 
 

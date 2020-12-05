@@ -2,10 +2,10 @@ package DroneGUI;
 
 import javafx.scene.image.Image;
 
-public class Obstacles extends Drone{
-    Image droneImage = new Image(getClass().getResourceAsStream("obstacle.jpg"));
+public class Avoider extends Drone {
+    Image droneImage = new Image(getClass().getResourceAsStream("circle.jpeg"));
 
-    public Obstacles(int x, int y, Direction d) {
+    public Avoider(int x, int y, Direction d) {
         super(x, y, d);
     }
 
@@ -21,18 +21,17 @@ public class Obstacles extends Drone{
 
     /**
      *
-     * @param x: uses myCanvas as a parameter to draw the element upon the canvas, namely, drone.
+     * @param x: uses myCanvas as a parameter to draw the element upon the canvas, namely, avoider.
      */
-    public void displayObstacles(MyCanvas x) {
+    public void displayAvoider(MyCanvas x) {
         x.drawImage(droneImage,posX, posY, 20);
     }
 
 
     /**
-     * @return string stating location of both x and y coordinates of the drone, including direction, generated from Direction.java.
+     * @return string stating location of both x and y coordinates of the avoider, including direction, generated from Direction.java.
      */
     public String toString() {
-        return "Obstacle is at: " + posX + "," + posY + " , positioned: " + direct.toString() + ".";
+        return "Avoid this drone at: " + posX + "," + posY + " , positioned: " + direct.toString() + ".";
     }
-
 }
