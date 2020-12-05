@@ -111,8 +111,16 @@ public class GUI extends Application {
         loadArena.setOnAction(l -> {
             canvasPane.clearCanvas();
             String inputX = JOptionPane.showInputDialog("Enter a new X Dimension for your arena:");
+            int placeholder = Integer.parseInt(inputX);
+            if (placeholder == JOptionPane.CANCEL_OPTION ){
+                ;
+            }
             int xCanvasSize = Integer.parseInt(inputX);
             String inputY = JOptionPane.showInputDialog("Enter a new Y Dimension for your arena:");
+            placeholder = Integer.parseInt(inputY);
+            if (placeholder == JOptionPane.CANCEL_OPTION ){
+                ;
+            }
             int yCanvasSize = Integer.parseInt(inputY);
             Canvas canvas = new Canvas(xCanvasSize, yCanvasSize);
             int reply = JOptionPane.showConfirmDialog(null, "Are you sure you would like to go ahead with these? Your canvas will be reset!", "Confirm", JOptionPane.YES_NO_OPTION);
