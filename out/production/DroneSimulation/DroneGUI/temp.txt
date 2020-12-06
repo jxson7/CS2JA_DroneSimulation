@@ -74,8 +74,7 @@ public class GUI extends Application {
         layout();
         mainStage.setScene(scene);
         JOptionPane.showMessageDialog(null, "Welcome to the CS2JA: Drone Simulation by Jason Jay Dookarun. In this simulation " +
-                "you will be able to add different objects such as drones, obstacles and avoiders, including saving, creating and loading" +
-                " a custom arena of your choice! Enjoy!", "About", JOptionPane.INFORMATION_MESSAGE);
+                "you will be able to add different objects such as drones, obstacles and avoiders, including having a custom arena. Enjoy!", "About", JOptionPane.INFORMATION_MESSAGE);
         mainStage.show();
     }
 
@@ -103,7 +102,7 @@ public class GUI extends Application {
     MenuBar setMenuBar() {
         MenuBar menuBar = new MenuBar();
         Menu fileSection = new Menu("File");
-        MenuItem loadArena = new MenuItem("Create an Arena");
+        MenuItem loadArena = new MenuItem("Load Custom Arena Size");
         MenuItem exit = new MenuItem("Exit");
         exit.setOnAction(e -> {
             int userResponse = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit?", "Quit Drone Simulation", JOptionPane.YES_NO_OPTION);
@@ -111,11 +110,11 @@ public class GUI extends Application {
                 exit(0);
             }
         });
-        MenuItem loadSavedFile = new MenuItem("Load Custom Arena Configurations");
+        MenuItem loadSavedFile = new MenuItem("Load Saved Arena File");
         loadSavedFile.setOnAction(l -> {
             loader();
         });
-        MenuItem saveContent = new MenuItem ("Save Arena Configurations");
+        MenuItem saveContent = new MenuItem ("Save Contents");
         saveContent.setOnAction(s->{
             try {
                 saver();
@@ -177,6 +176,33 @@ public class GUI extends Application {
             writer.write(Integer.toString(mainArena.getY()));
             writer.newLine();
             //Saves the drones in the arena one line at a time
+            for (Drone d : mainArena.droneList) {
+                writer.write("Drone: ");
+                writer.write(Integer.toString(d.getPosY()));
+                writer.write(" ");
+                writer.write(Integer.toString(d.getPosY()));
+                writer.write(" ");
+                writer.write(Integer.toString(d.getDirect().ordinal()));
+                writer.newLine();
+            }
+            for (Obstacles o : mainArena.obstaclesList){
+                writer.write("Obstacle: ");
+                writer.write(Integer.toString(o.getPosY()));
+                writer.write(" ");
+                writer.write(Integer.toString(o.getPosY()));
+                writer.write(" ");
+                writer.write(Integer.toString(o.getDirect().ordinal()));
+                writer.newLine();
+            }
+            for (Avoider a : mainArena.avoiderList){
+                writer.write("Avoider: ");
+                writer.write(Integer.toString(a.getPosY()));
+                writer.write(" ");
+                writer.write(Integer.toString(a.getPosY()));
+                writer.write(" ");
+                writer.write(Integer.toString(a.getDirect().ordinal()));
+                writer.newLine();
+            }
             Label statusLbl = new Label("File have been successfully saved" + "\n");
             leftPane.getChildren().add(statusLbl);
             System.out.println("File have been successfully loaded and will be displayed below" + "\n" );
@@ -199,26 +225,91 @@ public class GUI extends Application {
                 try{
                     System.out.println("Arena Loaded!\n" + "File Name: " + userFile.getName() + "\nDirectory: "  + userFile.getAbsolutePath());// prints file chosen and directory
 
+                    // Clear the current drone list
+                    if (!mainArena.droneList.isEmpty()) {
+                        mainArena.droneList.clear();
+                    }
                     canvasPane.clearCanvas();
                     Scanner fileReader = new Scanner(userFile);
                     int xSize = fileReader.nextInt();
                     int ySize = fileReader.nextInt();
-                    Canvas canvas = new Canvas(xSize, ySize);
-                    groupComponent.getChildren().add(canvas);
-                    Label statusLbl = new Label("Custom Configurations have been successfully loaded " + "\n" + "___________________________" + "\n");
-                    // and add canvas to group
-                    leftPane.getChildren().add(statusLbl);
-                    canvasPane = new MyCanvas(canvas.getGraphicsContext2D(), xSize, ySize);
-                    mainArena = new DroneArena(canvasPane.xCanvasSize, canvasPane.yCanvasSize);
+                    mainArena = new DroneArena(xSize, ySize); // creates a new arena with the gathered dimensions
+                    while (fileReader.hasNextLine()) {
+                        String type = fileReader.next();
+                        int a = fileReader.nextInt();
+                        int b = fileReader.nextInt();
+                        int direct = fileReader.nextInt();
 
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+                        if (type.contains("Drone: ")){
+                            mainArena.droneList.add(new Drone(a, b, Direction.values()[direct]));
+                            leftPane.getChildren().clear();                    // clear leftPane
+                            mainArena.drawArena(canvasPane);
+                            Label droneLbl = new Label(mainArena.toString());
+                            leftPane.getChildren().add(droneLbl);
+                            System.out.println(mainArena.toString());
+
+
+                        }
+                        if(type.contains("Obstacle: ")){
+                            mainArena.obstaclesList.add(new Obstacles(a, b, Direction.values()[direct]));
+                            leftPane.getChildren().clear();                    // clear leftPane
+                            mainArena.drawObstacle(canvasPane);
+                            Label obstacleLabel = new Label(mainArena.toString());
+                            leftPane.getChildren().add(obstacleLabel);
+                            System.out.println(mainArena.toString());
+
+                        }
+                        if(type.contains("Avoider: ")){
+                            mainArena.avoiderList.add(new Avoider(a, b, Direction.values()[direct]));
+                            mainArena.drawAvoider(canvasPane);
+                            Label avoiderLbl = new Label(mainArena.toString());
+                            leftPane.getChildren().add(avoiderLbl);
+                            System.out.println(mainArena.toString());
+
+                        }
+
+                        // while not in the end of the file
+//                        String line = fileReader.nextLine();
+//                        if (line.contains("Drone: ")){
+////                            char[] chars = line.toCharArray();
+////                            for (char c: chars){
+//                            info = fileReader.next();
+//
+//                            mainArena.droneList.add(new Drone(a, b, Direction.values()[direct]));
+////                            }
+//
+//                        }
+//                        if (line.contains("Obstacle: ")){
+//                            info = fileReader.next();
+//                            int a = fileReader.nextInt();
+//                            int b = fileReader.nextInt();
+//                            int direct = fileReader.nextInt();
+//                            // creates drone and adds it do list
+//                            mainArena.obstaclesList.add(new Obstacles(a, b, Direction.values()[direct]));
+//                        }
+//                        if (line.contains("Avoider: ")){
+//                            info = fileReader.next();
+//                            int a = fileReader.nextInt();
+//                            int b = fileReader.nextInt();
+//                            int direct = fileReader.nextInt();
+//                            // creates drone and adds it do list
+//                            mainArena.avoiderList.add(new Avoider(a, b, Direction.values()[direct]));
+//                        }
+
+                    }
+                    Label statusLbl = new Label("File have been successfully loaded and will be displayed below" + "\n" + "___________________________" + "\n");
+                    leftPane.getChildren().add(statusLbl);
+                    System.out.println("File have been successfully loaded and will be displayed below" + "\n" );
+                    fileReader.close();
+
+                }catch(FileNotFoundException x){
+                    System.out.println("File not loaded");
+                    x.printStackTrace();
                 }
 
             }
         }
     }
-
 
     /**
      * Focuses on creation the buttons for the user to interact with, i.e. add Drone and Stop System
