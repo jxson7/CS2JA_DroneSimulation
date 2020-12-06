@@ -73,9 +73,11 @@ public class GUI extends Application {
 
         layout();
         mainStage.setScene(scene);
-        JOptionPane.showMessageDialog(null, "Welcome to the CS2JA: Drone Simulation by Jason Jay Dookarun. In this simulation " +
-                "you will be able to add different objects such as drones, obstacles and avoiders, including saving, creating and loading" +
-                " a custom arena of your choice! Enjoy!", "About", JOptionPane.INFORMATION_MESSAGE);
+        JLabel lbl = new JLabel("<html> Welcome to the CS2JA: Drone Simulation by Jason Jay Dookarun. <br> In this simulation " +
+                "you will be able to add different objects such as drones, obstacles and avoiders. <br> You will also be able to save, create and load" +
+                " a custom arena of your choice! <br> I Hope You Enjoy Your Experience! <br> <br> <br> - Jason Jay Dookarun");
+        lbl.setHorizontalAlignment(SwingConstants.CENTER);
+        JOptionPane.showMessageDialog(null, lbl , "About", JOptionPane.INFORMATION_MESSAGE);
         mainStage.show();
     }
 
