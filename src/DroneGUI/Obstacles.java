@@ -35,4 +35,14 @@ public class Obstacles extends Drone{
         return "Obstacle is at: " + posX + "," + posY + " , positioned: " + direct.toString() + ".";
     }
 
+    /**
+     * The following class will act as a tester class to experiment with how successful this class functions.
+     * @param args
+     */
+    public static void main(String [] args){
+        Obstacles x = new Obstacles(15,50,Direction.randomDir());
+        x.toString();
+        System.out.println((x));
+    }
+
 }

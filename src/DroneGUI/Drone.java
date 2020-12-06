@@ -54,7 +54,7 @@ import javafx.scene.image.Image;
     }
 
     /**
-     * The following class will act as a tester class to experiment with how successful this class functions.
+     * The following class will act as a tester class to experiment with how successful this class functions. Focuses on solely drones.
      * @param args
      */
     public static void main(String [] args){

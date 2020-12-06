@@ -26,5 +26,14 @@ public enum Direction {
         return values()[random.nextInt(values().length)];
     }
 
+    /**
+     * The following class focuses on the automatic random generation of the 4 enumeration elements, and selecting one. Tester method.
+     * @param args: no parameters entered
+     */
+    public static void main(String [] args){
+        Direction d = Direction.randomDir();
+        System.out.println(d.toString());
+    }
+
 
 }

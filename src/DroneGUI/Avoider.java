@@ -34,4 +34,14 @@ public class Avoider extends Drone {
     public String toString() {
         return "Avoid this drone at: " + posX + "," + posY + " , positioned: " + direct.toString() + ".";
     }
+
+    /**
+     * The following class will act as a tester class to experiment with how successful this class functions.
+     * @param args
+     */
+    public static void main(String [] args){
+        Avoider x = new Avoider(10,20,Direction.randomDir());
+        x.toString();
+        System.out.println((x));
+    }
 }

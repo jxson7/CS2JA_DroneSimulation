@@ -163,5 +163,19 @@ public class DroneArena {
     }
 
 
+    /**
+     * The following main class is utilised as a tester mechanism whereby a custom arena is created, and drones, avoiders and obstacles are added.
+     * This is then printed via a toString() method.
+     * @param args: focuses on no parameters unless entered by the user.
+     */
+    public static void main(String [] args){
+        DroneArena x = new DroneArena(20,10);
+        x.addDrone();
+        x.addAvoider();
+        x.addObstacle();
+        System.out.println(args.toString());
+
+
+    }
 
 }
