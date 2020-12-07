@@ -3,7 +3,7 @@ package DroneGUI;
 import javafx.scene.image.Image;
 
 public class Avoider extends Drone {
-    Image droneImage = new Image(getClass().getResourceAsStream("circle.jpeg"));
+    Image droneImage = new Image(getClass().getResourceAsStream("circle.jpeg")); // avoider image
 
     public Avoider(int x, int y, Direction d) {
         super(x, y, d);
@@ -25,7 +25,7 @@ public class Avoider extends Drone {
      */
     public void displayAvoider(MyCanvas x) {
         x.drawImage(droneImage,posX, posY, 20);
-    }
+    } // uses function stated in myCanvas
 
 
     /**
@@ -37,7 +37,7 @@ public class Avoider extends Drone {
 
     /**
      * The following class will act as a tester class to experiment with how successful this class functions.
-     * @param args
+     * @param args: none passed
      */
     public static void main(String [] args){
         Avoider x = new Avoider(10,20,Direction.randomDir());

@@ -5,9 +5,8 @@ import java.util.*;
  * @author Jason Jay Dookarun
  * Direction is an enumeration used for directions of the drones dependent on the positioning
  */
-
 public enum Direction {
-    north, south, east, west;
+    north, south, east, west; // declaration of elements
 
     // nextDir focuses on creating the next direction
     public Direction nextDir(){

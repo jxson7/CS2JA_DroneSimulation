@@ -3,7 +3,7 @@ package DroneGUI;
 import javafx.scene.image.Image;
 
 public class Obstacles extends Drone{
-    Image droneImage = new Image(getClass().getResourceAsStream("obstacle.jpg"));
+    Image droneImage = new Image(getClass().getResourceAsStream("obstacle.jpg")); // image of drone
 
     public Obstacles(int x, int y, Direction d) {
         super(x, y, d);
@@ -24,7 +24,7 @@ public class Obstacles extends Drone{
      * @param x: uses myCanvas as a parameter to draw the element upon the canvas, namely, drone.
      */
     public void displayObstacles(MyCanvas x) {
-        x.drawImage(droneImage,posX, posY, 20);
+        x.drawImage(droneImage,posX, posY, 20); // uses drawImage function from myCanvas
     }
 
 
@@ -37,7 +37,7 @@ public class Obstacles extends Drone{
 
     /**
      * The following class will act as a tester class to experiment with how successful this class functions.
-     * @param args
+     * @param args: no arguments passed
      */
     public static void main(String [] args){
         Obstacles x = new Obstacles(15,50,Direction.randomDir());
