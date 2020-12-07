@@ -1,0 +1,13 @@
+Arena: 512 512
+Drone: 313 215 0
+Drone: 261 296 3
+Drone: 361 140 1
+Drone: 11 356 1
+Drone: 178 359 0
+Obstacle: 450 341 3
+Obstacle: 442 23 3
+Obstacle: 173 323 2
+Obstacle: 501 65 1
+Obstacle: 496 22 3
+Avoider: 88 222 1
+Avoider: 232 11 0
