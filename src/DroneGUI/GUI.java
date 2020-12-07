@@ -101,7 +101,7 @@ import static java.lang.Thread.sleep;
     MenuBar setMenuBar() {
         MenuBar menuBar = new MenuBar(); // creation of main menu panel
         Menu fileSection = new Menu("File"); // panel one of the menu bar
-        MenuItem loadArena = new MenuItem("Load Custom Arena Size"); // option 1 for the user
+        MenuItem loadArena = new MenuItem("Create An Arena"); // option 1 for the user
         MenuItem exit = new MenuItem("Exit"); // exit setup
         exit.setOnAction(e -> {
             int userResponse = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit?", "Quit Drone Simulation", JOptionPane.YES_NO_OPTION); // message box provided to user for options
@@ -109,7 +109,7 @@ import static java.lang.Thread.sleep;
                 exit(0);
             }
         });
-        MenuItem loadSavedFile = new MenuItem("Load Saved Arena File"); // user can load a custom file
+        MenuItem loadSavedFile = new MenuItem("Load Custom Configurations"); // user can load a custom file
         loadSavedFile.setOnAction(l -> {
             loader(); // loader method
         });
