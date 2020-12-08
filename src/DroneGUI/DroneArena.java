@@ -13,6 +13,7 @@ public class DroneArena {
     Drone newDrone;
     Obstacles newObstacle;
     Avoider newAvoider;
+    MyCanvas myCanvas;
     ArrayList<Obstacles> obstaclesList = new ArrayList<>();
     ArrayList<Avoider> avoiderList = new ArrayList<>();
 
