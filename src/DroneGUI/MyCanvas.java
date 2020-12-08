@@ -20,7 +20,7 @@ public class MyCanvas {
 
     /**
      * constructor sets up relevant Graphics context and size of canvas
-     * @param g
+     * @param g: graphic context
      */
     public MyCanvas(GraphicsContext g, int xcs, int ycs) {
         gc = g;
@@ -43,8 +43,8 @@ public class MyCanvas {
     /**
      * drawImage ... draws object defined by given image at position and size
      * @param i		image
-     * @param x		xposition	in range 0..1
-     * @param y
+     * @param x		x position	in range 0..1
+     * @param y:    y position
      * @param sz	size
      */
     public void drawImage (Image i, double x, double y, double sz) {
@@ -90,17 +90,17 @@ public class MyCanvas {
 
     /**
      * set the fill colour to color c
-     * @param c
+     * @param c: colour c
      */
     public void setFillColour (Color c) {
         gc.setFill(c);
     }
     /**
      * show the ball at position x,y , radius r in colour defined by col
-     * @param x
-     * @param y
-     * @param rad
-     * @param col
+     * @param x: x coordinate
+     * @param y: y coordinate
+     * @param rad: radius
+     * @param col: colour
      */
     public void showCircle(double x, double y, double rad, char col) {
         setFillColour(colFromChar(col));			// set the fill colour
@@ -109,9 +109,9 @@ public class MyCanvas {
 
     /**
      * show the ball in the current colour at x,y size rad
-     * @param x
-     * @param y
-     * @param rad
+     * @param x: x val
+     * @param y: y val
+     * @param rad: radius
      */
     public void showCircle(double x, double y, double rad) {
         gc.fillArc(x-rad, y-rad, rad*2, rad*2, 0, 360, ArcType.ROUND);	// fill circle
@@ -119,9 +119,9 @@ public class MyCanvas {
 
     /**
      * Show Text .. by writing string s at position x,y
-     * @param x
-     * @param y
-     * @param s
+     * @param x: x val
+     * @param y: y val
+     * @param s: string
      */
     public void showText (double x, double y, String s) {
         gc.setTextAlign(TextAlignment.CENTER);							// set horizontal alignment
@@ -132,9 +132,9 @@ public class MyCanvas {
 
     /**
      * Show Int .. by writing int i at position x,y
-     * @param x
-     * @param y
-     * @param i
+     * @param x: x val
+     * @param y: y val
+     * @param i: integer i
      */
     public void showInt (double x, double y, int i) {
         showText (x, y, Integer.toString(i));
