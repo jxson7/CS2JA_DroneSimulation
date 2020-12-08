@@ -67,7 +67,7 @@ import static java.lang.Thread.sleep;
             }
         }.start();
         layout(); // focuses on the layout of elements, later discussed
-
+        canvasPane.fillCanvas(xCanvasSize,yCanvasSize);
         mainStage.setScene(scene); // the main pane with all components is set up
         JLabel lbl = new JLabel("<html> Welcome to the CS2JA: Drone Simulation: GUI Edition. <br> In this simulation " +
                 "you will be able to add different objects such as drones, obstacles and avoiders. <br> You will also be able to save, create and load" +
@@ -123,6 +123,8 @@ import static java.lang.Thread.sleep;
                 groupComponent.getChildren().add(canvas);			// and add canvas to group
                 canvasPane = new MyCanvas(canvas.getGraphicsContext2D(), xCanvasSize, yCanvasSize); //reuses the same canvas as previously stated
                 mainArena = new DroneArena(canvasPane.xCanvasSize, canvasPane.yCanvasSize); //draws the arena
+                canvasPane.fillCanvas(xCanvasSize,yCanvasSize);
+
             }
         });
         MenuItem saveContent = new MenuItem ("Save Custom Configurations");
@@ -145,6 +147,7 @@ import static java.lang.Thread.sleep;
                 groupComponent.getChildren().add(canvas);			// and add canvas to group
                 canvasPane = new MyCanvas(canvas.getGraphicsContext2D(), xCanvasSize, yCanvasSize);
                 mainArena = new DroneArena(canvasPane.xCanvasSize, canvasPane.yCanvasSize);
+                canvasPane.fillCanvas(xCanvasSize,yCanvasSize);
                 JOptionPane.showMessageDialog(null, "Your new custom arena size is: " + xCanvasSize + " by " + yCanvasSize, "New Arena Size", JOptionPane.INFORMATION_MESSAGE); //content is shown via message box
                 System.out.println("Your new custom arena size is: " + xCanvasSize + " by " + yCanvasSize); // printed in terminal for validation
                 System.out.println("_____________________");
@@ -243,6 +246,8 @@ import static java.lang.Thread.sleep;
                             groupComponent.getChildren().add(canvas);			// and add canvas to group
                             canvasPane = new MyCanvas(canvas.getGraphicsContext2D(), xSize, ySize); // draws the canvas pane
                             mainArena = new DroneArena(canvasPane.xCanvasSize, canvasPane.yCanvasSize);
+                            canvasPane.fillCanvas(xCanvasSize,yCanvasSize);
+
                         }
                         if (type.equals("Drone:")) { //reads the category header
                             int a = fileReader.nextInt(); // x value assigned
