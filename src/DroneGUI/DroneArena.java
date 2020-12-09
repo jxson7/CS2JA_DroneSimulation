@@ -87,8 +87,12 @@ public class DroneArena {
         if (droneList.size() < xDimensions * yDimensions){
                 xco = random.nextInt((xDimensions)); // random number assigned to variable
                 yco = random.nextInt((yDimensions));// random number assigned to variable
-                newDrone = new Drone(xco, yco, Direction.randomDir()); // values assigned to Drone as well as a random Direction
-                droneList.add(newDrone); // drone added to arrayList
+                if (xco < xDimensions - 20 && yco <= yDimensions - 20) {
+                    newDrone = new Drone(xco, yco, Direction.randomDir()); // values assigned to Drone as well as a random Direction
+                    droneList.add(newDrone); // drone added to arrayList
+                } else{
+                    System.out.println("Element cannot be added as it exceeds your created canvas");
+                }
         } else{
             System.out.println("Drone cannot be added as you have reached maximum capacity. Please try again.");
         }
@@ -98,9 +102,7 @@ public class DroneArena {
      * A random value is generated. A checker is implemented to verify that the obstacle array list does not exceed the limit.
      * If it exceeds the limit, then the drone cannot be added, else, if it meets the requirements, random coordinates are generated, and the
      * obstacle (newObstacle) is added into the arrayList (obstacleList).
-     *
      */
-    // focuses on adding a obstacle by generating a random value and then adding it into the array
     public void addObstacle() {
         Random random; // random value generated
         int xco, yco; // values for storing coordinates of obstacles
@@ -108,8 +110,12 @@ public class DroneArena {
         if (droneList.size() < xDimensions * yDimensions){ // parameter to ensure the drone can be added to the list
             xco = random.nextInt((xDimensions)); // random num assigned to variable
             yco = random.nextInt((yDimensions)); // random number assigned to variable
-            newObstacle = new Obstacles(xco, yco, Direction.randomDir()); // values assigned to Obstacle as well as random direction
-            obstaclesList.add(newObstacle); // content added to arrayList
+            if (xco < xDimensions - 20 && yco <= yDimensions - 20) {
+                newObstacle = new Obstacles(xco, yco, Direction.randomDir()); // values assigned to Obstacle as well as random direction
+                obstaclesList.add(newObstacle); // content added to arrayList
+            }else{
+                System.out.println("Element cannot be added as it exceeds your created canvas");
+            }
         } else{
             System.out.println("Obstacle cannot be added as you have reached maximum capacity. Please try again.");
         }
@@ -121,7 +127,6 @@ public class DroneArena {
      * avoider (newAvoider) is added into the arrayList (avoiderList).
      *
      */
-    // focuses on adding an avoider by generating a random value and then adding it into the array
     public void addAvoider() {
         Random random;
         int xco, yco; // values for storing coordinates of obstacles
@@ -129,8 +134,12 @@ public class DroneArena {
         if (droneList.size() < xDimensions * yDimensions){ //parameter verification, same as Drone and Obstacle
             xco = random.nextInt((xDimensions)); // random number assigned to variable
             yco = random.nextInt((yDimensions)); // random number assigned to variable
-            newAvoider = new Avoider(xco, yco, Direction.randomDir()); // values assigned to new Avoider
-            avoiderList.add(newAvoider); // avoider added to arrayList
+            if (xco < xDimensions - 20 && yco <= yDimensions - 20) {
+                newAvoider = new Avoider(xco, yco, Direction.randomDir()); // values assigned to Obstacle as well as random direction
+                avoiderList.add(newAvoider); // content added to arrayList
+            }else{
+                System.out.println("Element cannot be added as it exceeds your created canvas");
+            }
         } else{
             System.out.println("Avoider cannot be added as you have reached maximum capacity. Please try again.");
         }
@@ -156,14 +165,12 @@ public class DroneArena {
         return s.toString();
     }
 
-
     /**
      * @return a print message to the user, knowing that the automated process has been stopped based on user command
      */
     public String stopProcess(){
        return "Process has been stopped" + "\n";
     }
-
 
     /**
      * The following main class is utilised as a tester mechanism whereby a custom arena is created, and drones, avoiders and obstacles are added.
