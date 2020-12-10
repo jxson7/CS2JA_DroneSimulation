@@ -78,6 +78,7 @@ public class MyCanvas {
     }
 
     /**
+     * Fills canvas for visual proof during runtime.
      * @param x: dimensions of x value of canvas
      * @param y: y value of the canvas
      */

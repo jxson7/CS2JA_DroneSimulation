@@ -3,6 +3,9 @@ package DroneGUI;
 import javafx.scene.image.Image;
 
 public class Avoider extends Drone {
+    /**
+     * focuses on inheriting the content from Drone, but re-declares the image.
+     */
     Image droneImage = new Image(getClass().getResourceAsStream("circle.jpeg")); // avoider image
 
     public Avoider(int x, int y, Direction d) {

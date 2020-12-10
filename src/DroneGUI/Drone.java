@@ -12,6 +12,11 @@ import javafx.scene.image.Image;
         Direction direct;
         Image droneImage = new Image(getClass().getResourceAsStream("droneimage.jpg")); // image of drone
 
+    /**
+     * @param x: pos of drone in x
+     * @param y: pos of drone in y
+     * @param d: direction of drone
+     */
     Drone(int x, int y, Direction d){
         direct  = d;
         posX = x;

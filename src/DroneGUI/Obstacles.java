@@ -2,6 +2,9 @@ package DroneGUI;
 
 import javafx.scene.image.Image;
 
+/**
+ * Focuses on being an extension to Drone, and inherits all components, methods via super, but re-declares the image
+ */
 public class Obstacles extends Drone{
     Image droneImage = new Image(getClass().getResourceAsStream("obstacle.jpg")); // image of drone
 

@@ -25,12 +25,12 @@ import static java.lang.Thread.sleep;
         // constructor declarations
         private VBox statusPane;
         public int xCanvasSize = 512; // declaration of canvas size
-        public int yCanvasSize = 512;
-        private MyCanvas canvasPane;
+        public int yCanvasSize = 512; // canvas size
+        private MyCanvas canvasPane; // creation of canvasPane to be drawn up
         DroneArena mainArena;
         BorderPane borderPane = new BorderPane();
         Group groupComponent = new Group();
-        private boolean testerTimer = false;
+        private boolean testerTimer = false; // timer usd
 
     /**
      * The following method focuses on creating and generating all the components involved as part of the project, including
@@ -49,7 +49,7 @@ import static java.lang.Thread.sleep;
         borderPane.setCenter(groupComponent); // positioning the pane for visibility
         statusPane = new VBox(); // creating the status pane to see progress
         Scene scene = new Scene(borderPane, xCanvasSize *1.7, yCanvasSize *1.2); // setting dimensions of window to fit content
-        new AnimationTimer() {
+        new AnimationTimer() { // automation timer used to control animation
             public void handle(long currentNanoTime) {
                 if (testerTimer) { // when the timer is true, the following are to be processed
                     mainArena.addDrone(); // drone is added
@@ -80,7 +80,7 @@ import static java.lang.Thread.sleep;
     public void layout() {
         statusPane = new VBox(); // the status panel is created
         Label label = new Label(mainArena.toString()); // content is added to the panel
-        statusPane.getChildren().add(label);
+        statusPane.getChildren().add(label); // adds the content to the panel
         ScrollPane sideBarScroller = new ScrollPane(statusPane); //  scroll bar is set up for future
         sideBarScroller.setFitToWidth(true); // sets the scrollbar rotation
         borderPane.setRight(sideBarScroller); //orientation setup
@@ -161,13 +161,13 @@ import static java.lang.Thread.sleep;
         MenuItem aboutSection = new MenuItem("About");
         aboutSection.setOnAction(actionEvent -> JOptionPane.showMessageDialog(null, "Welcome to the DroneGUI from the CS2JA course by Jason Jay Dookarun", "About", JOptionPane.INFORMATION_MESSAGE));
         fileSection.getItems().addAll(loadArena,loadSavedFile,saveContent,clean,exit); // adds all the new menu components to the group
-        helpSection.getItems().addAll(help, aboutSection);
-        menuBar.getMenus().addAll(fileSection, helpSection);
+        helpSection.getItems().addAll(help, aboutSection); // adds the items to group
+        menuBar.getMenus().addAll(fileSection, helpSection); // adds items to group
         return menuBar; // adds content to the pane as a visual identifier
     }
 
     private void saver() throws IOException {
-        String curDir = System.getProperty("user.dir");
+        String curDir = System.getProperty("user.dir"); // identifies users preset directory of project
         JFileChooser chooser = new JFileChooser(curDir);
         chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         int returnVal = chooser.showSaveDialog(null); //stores user input when they click open or cancel
@@ -304,6 +304,7 @@ import static java.lang.Thread.sleep;
     private HBox createButtonPane() {
         mainArena.drawArena(canvasPane);//draw
         Button add = new Button("Drone Adder (Auto)"); // button creation
+
         Button stop = new Button("Pause Animation"); // button creation
         add.setOnAction(event -> testerTimer = true); // if the button is clicked, timer is activated
         stop.setOnAction(event -> {
